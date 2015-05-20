@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="SeasonHeader" customModule="PopcornTime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bkC-4d-qdf" userLabel="container">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDS-Q8-pSr" userLabel="title">
+                            <rect key="frame" x="8" y="0.0" width="304" height="50"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <color key="textColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="mDS-Q8-pSr" firstAttribute="top" secondItem="bkC-4d-qdf" secondAttribute="top" id="GrJ-Ar-l0z"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="mDS-Q8-pSr" secondAttribute="trailing" id="S0v-P0-TuJ"/>
+                        <constraint firstAttribute="bottom" secondItem="mDS-Q8-pSr" secondAttribute="bottom" id="TLT-bp-E9s"/>
+                        <constraint firstItem="mDS-Q8-pSr" firstAttribute="leading" secondItem="bkC-4d-qdf" secondAttribute="leadingMargin" id="WIh-eY-bht"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="bkC-4d-qdf" secondAttribute="trailing" id="9CX-Cl-t4g"/>
+                <constraint firstAttribute="bottom" secondItem="bkC-4d-qdf" secondAttribute="bottom" id="UFw-Ql-bPf"/>
+                <constraint firstItem="bkC-4d-qdf" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="sJl-4J-iH4"/>
+                <constraint firstItem="bkC-4d-qdf" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="tj4-KH-OiX"/>
+            </constraints>
+            <connections>
+                <outlet property="container" destination="bkC-4d-qdf" id="77A-kK-lTD"/>
+                <outlet property="titleLabel" destination="mDS-Q8-pSr" id="3Q8-ij-wzQ"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+</document>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShowCell" id="gTV-IL-0wX" customClass="ShowCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="254" height="308"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="254" height="308"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5e-j4-dT2">
+                        <rect key="frame" x="0.0" y="0.0" width="254" height="308"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m3j-dH-2P5">
+                                <rect key="frame" x="0.0" y="0.0" width="254" height="308"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GL-9T-ZmT" userLabel="Additional info container">
+                                <rect key="frame" x="0.0" y="259" width="254" height="47"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIo-GA-3Sv" userLabel="Title label">
+                                        <rect key="frame" x="8" y="0.0" width="238" height="47"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="VIo-GA-3Sv" firstAttribute="leading" secondItem="5GL-9T-ZmT" secondAttribute="leading" constant="8" id="Tcf-YL-kf2"/>
+                                    <constraint firstItem="VIo-GA-3Sv" firstAttribute="top" secondItem="5GL-9T-ZmT" secondAttribute="top" id="hpN-LS-QBX"/>
+                                    <constraint firstAttribute="trailing" secondItem="VIo-GA-3Sv" secondAttribute="trailing" constant="8" id="kLn-Ab-R7c"/>
+                                    <constraint firstAttribute="bottom" secondItem="VIo-GA-3Sv" secondAttribute="bottom" id="t9O-b2-4fb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="m3j-dH-2P5" firstAttribute="top" secondItem="Y5e-j4-dT2" secondAttribute="top" id="7jl-BL-RYt"/>
+                            <constraint firstAttribute="trailing" secondItem="m3j-dH-2P5" secondAttribute="trailing" id="8LX-aM-xtW"/>
+                            <constraint firstAttribute="bottom" secondItem="m3j-dH-2P5" secondAttribute="bottom" id="8xp-yb-hac"/>
+                            <constraint firstItem="5GL-9T-ZmT" firstAttribute="top" secondItem="m3j-dH-2P5" secondAttribute="bottom" constant="2" id="Cmd-lp-OcT"/>
+                            <constraint firstItem="5GL-9T-ZmT" firstAttribute="leading" secondItem="Y5e-j4-dT2" secondAttribute="leading" id="I0m-9g-LBJ"/>
+                            <constraint firstItem="5GL-9T-ZmT" firstAttribute="height" secondItem="Y5e-j4-dT2" secondAttribute="height" multiplier="0.15" id="Q9c-kx-GUQ"/>
+                            <constraint firstAttribute="trailing" secondItem="5GL-9T-ZmT" secondAttribute="trailing" id="Ybd-mW-Jhk"/>
+                            <constraint firstItem="m3j-dH-2P5" firstAttribute="leading" secondItem="Y5e-j4-dT2" secondAttribute="leading" id="bsv-ZE-vhn"/>
+                            <constraint firstAttribute="bottom" secondItem="5GL-9T-ZmT" secondAttribute="bottom" constant="2" id="pWz-sN-WXm"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Cmd-lp-OcT"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="Y5e-j4-dT2" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="01J-UT-UNf"/>
+                <constraint firstAttribute="bottom" secondItem="Y5e-j4-dT2" secondAttribute="bottom" id="9nY-4Q-qxB"/>
+                <constraint firstItem="Y5e-j4-dT2" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="B9L-PQ-hYZ"/>
+                <constraint firstAttribute="trailing" secondItem="Y5e-j4-dT2" secondAttribute="trailing" id="jJr-UM-ZfQ"/>
+            </constraints>
+            <size key="customSize" width="267" height="339"/>
+            <connections>
+                <outlet property="imageView" destination="m3j-dH-2P5" id="kp8-Ip-ETz"/>
+                <outlet property="titleLabel" destination="VIo-GA-3Sv" id="lLb-5b-gRs"/>
+            </connections>
+            <point key="canvasLocation" x="242" y="343"/>
+        </collectionViewCell>
+    </objects>
+</document>
