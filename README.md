@@ -7,3 +7,14 @@ Version of PopcornTime app for iOS based on [libtorrent](http://www.libtorrent.o
 ![](https://raw.github.com/danylokostyshyn/popcorntime-ios/master/Screenshots/1.png)
 ![](https://raw.github.com/danylokostyshyn/popcorntime-ios/master/Screenshots/2.png)
 ![](https://raw.github.com/danylokostyshyn/popcorntime-ios/master/Screenshots/3.png)
+
+### Getting Started
+
+This project uses [CocoaPods](http://cocoapods.org/).
+
+``` bash
+$ git clone https://github.com/danylokostyshyn/popcorntime-ios.git
+$ cd popcorntime-ios/
+$ pod install
+$ open PopcornTime.xcworkspace/
+```
