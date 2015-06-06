@@ -243,7 +243,8 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
                 let action = UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     let magnetLink = video.magnetLink
                     let episodeTitle = episode.title ?? ""
-                    self.startPlayback(magnetLink, loadingTitle: episodeTitle)
+                    let loadingTitle = "\(episodeTitle) - \(title)"
+                    self.startPlayback(magnetLink, loadingTitle: loadingTitle)
                 })
                 
                 actionSheetController.addAction(action)
