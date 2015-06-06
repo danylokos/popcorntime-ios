@@ -59,7 +59,8 @@ class MovieDetailsViewController: BaseDetailsViewController {
     override func userSelectedEpisode(cell: UICollectionViewCell, episodeIndex: Int, fromSeason seasonIndex: Int) {
         let video = movie.videos[episodeIndex]
         let magnetLink = video.magnetLink
-        startPlayback(magnetLink)
+        let title = movie.title ?? ""
+        startPlayback(magnetLink, loadingTitle: title)
     }
     
 }

@@ -22,6 +22,7 @@ class LoadingViewController: UIViewController {
     @IBOutlet private weak var speedLabel: UILabel!
     @IBOutlet private weak var seedsLabel: UILabel!
     @IBOutlet private weak var peersLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
     
     var status: String? = nil {
         didSet {
@@ -56,6 +57,14 @@ class LoadingViewController: UIViewController {
             peersLabel.text = String(format: "Peers: %d", peers)
         }
     }
+    
+    var loadingTitle: String? = nil {
+        didSet {
+            if let title = loadingTitle {
+                titleLabel?.text = title
+            }
+        }
+    }
 
     // MARK: - View Life Cycle
     
@@ -67,6 +76,16 @@ class LoadingViewController: UIViewController {
         speed = 0
         seeds = 0
         peers = 0
+        
+        titleLabel?.text = loadingTitle
+        
+        UIApplication.sharedApplication().idleTimerDisabled = true;
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidLoad()
+        
+        UIApplication.sharedApplication().idleTimerDisabled = false;
     }
 
     // MARK: - Actions
