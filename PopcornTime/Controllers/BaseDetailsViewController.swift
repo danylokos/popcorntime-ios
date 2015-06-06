@@ -102,10 +102,11 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
         
     }
     
-    func startPlayback(magnetLink: String) {
+    func startPlayback(magnetLink: String, loadingTitle: String) {
         let loadingVC = self.storyboard?.instantiateViewControllerWithIdentifier("loadingViewController") as! LoadingViewController
         loadingVC.delegate = self
         loadingVC.status = "Downloading..."
+        loadingVC.loadingTitle = loadingTitle
         loadingVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         self.tabBarController?.presentViewController(loadingVC, animated: true, completion: nil)
         
@@ -241,7 +242,8 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
                 
                 let action = UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     let magnetLink = video.magnetLink
-                    self.startPlayback(magnetLink)
+                    let episodeTitle = episode.title ?? ""
+                    self.startPlayback(magnetLink, loadingTitle: episodeTitle)
                 })
                 
                 actionSheetController.addAction(action)
