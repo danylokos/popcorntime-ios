@@ -15,21 +15,6 @@ NSString *const PTAPIManagerMoviesEndPoint = @"http://ytspt.re/api";
 NSString *const PTAPIManagerShowsEndPoint = @"http://eztvapi.re";
 NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
 
-/*
- http://ytspt.re/api/list.json?limit=30&order=desc&sort=seeds
- http://ytspt.re/api/listimdb.json?imdb_id=tt2245084
- http://ytspt.re/api/list.json?limit=30&keywords=terminator&order=desc&sort=seeds&set=1
- http://www.yifysubtitles.com//subtitle-api/big-hero-6-yify-36523.zip
- 
- http://eztvapi.re/shows/1?limit=30&order=desc&sort=seeds
- http://eztvapi.re/show/tt0898266
- http://eztvapi.re/shows/1?limit=30&keywords=the+big+bang&order=desc&sort=seeds
- 
- http://ptp.haruhichan.com/list.php?page=1&limit=50&sort=popularity&type=All
- http://ptp.haruhichan.com/anime.php?id=912
- */
-
-
 @implementation PTAPIManager
 
 #pragma mark - Public API
