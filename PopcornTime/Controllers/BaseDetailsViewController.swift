@@ -112,7 +112,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
         
         PTTorrentStreamer.sharedStreamer().startStreamingFromFileOrMagnetLink(magnetLink, progress: { (status) -> Void in
             
-            loadingVC.progress = status.bufferingProgress
+            loadingVC.progress = status.totalProgreess
             loadingVC.speed = Int(status.downloadSpeed)
             loadingVC.seeds = Int(status.seeds)
             loadingVC.peers = Int(status.peers)
