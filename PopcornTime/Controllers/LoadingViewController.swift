@@ -78,6 +78,14 @@ class LoadingViewController: UIViewController {
         peers = 0
         
         titleLabel?.text = loadingTitle
+        
+        UIApplication.sharedApplication().idleTimerDisabled = true;
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidLoad()
+        
+        UIApplication.sharedApplication().idleTimerDisabled = false;
     }
 
     // MARK: - Actions
