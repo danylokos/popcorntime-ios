@@ -280,9 +280,19 @@
                                                 <constraint firstAttribute="width" constant="260" id="Azv-Bj-qqf"/>
                                             </constraints>
                                         </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie name - resolution" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFA-o4-k8D" userLabel="Title Label">
+                                            <rect key="frame" x="208" y="35" width="185" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="BFA-o4-k8D" firstAttribute="top" secondItem="Bbw-Ra-hAv" secondAttribute="top" constant="35" id="8GK-gX-IRy"/>
+                                        <constraint firstAttribute="centerX" secondItem="BFA-o4-k8D" secondAttribute="centerX" id="HQY-9H-dme"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BFA-o4-k8D" secondAttribute="trailing" constant="5" id="TzI-CV-4j1"/>
                                         <constraint firstAttribute="centerY" secondItem="Eno-Np-eyT" secondAttribute="centerY" id="euo-DO-0a6"/>
+                                        <constraint firstItem="BFA-o4-k8D" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bbw-Ra-hAv" secondAttribute="leading" constant="5" id="f3S-uc-t2S"/>
                                         <constraint firstAttribute="centerX" secondItem="Eno-Np-eyT" secondAttribute="centerX" id="fb1-QL-1Gt"/>
                                     </constraints>
                                 </view>
@@ -316,6 +326,7 @@
                         <outlet property="seedsLabel" destination="odl-qX-n2O" id="fNP-Rd-afo"/>
                         <outlet property="speedLabel" destination="ZtX-Eh-3Ck" id="zu4-Oy-HuH"/>
                         <outlet property="statusLabel" destination="4bR-E2-MXi" id="Omi-rU-Gma"/>
+                        <outlet property="titleLabel" destination="BFA-o4-k8D" id="H8g-9M-v8E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tWv-oB-zv8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -509,7 +520,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="09A-zd-jWh">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="PsM-1R-DZR" id="LkZ-4H-AMh"/>
                                     <outlet property="delegate" destination="PsM-1R-DZR" id="hXZ-yB-VQR"/>
