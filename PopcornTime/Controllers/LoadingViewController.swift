@@ -77,6 +77,14 @@ class LoadingViewController: UIViewController {
         speed = 0
         seeds = 0
         peers = 0
+        
+        UIApplication.sharedApplication().idleTimerDisabled = true;
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidLoad()
+        
+        UIApplication.sharedApplication().idleTimerDisabled = false;
     }
 
     // MARK: - Actions
