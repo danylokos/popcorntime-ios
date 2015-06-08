@@ -1,8 +1,8 @@
 PODS:
   - CocoaSecurity (1.2.4)
-  - private-boost (1.55.0)
-  - private-libtorrent (1.0.3)
-  - private-MobileVLCKit (2.5.150406)
+  - private-boost (1.58.0)
+  - private-libtorrent (1.0.5)
+  - private-MobileVLCKit (2.5.150604)
   - private-openssl (1.0.201)
   - Reachability (3.2)
 
@@ -16,9 +16,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   CocoaSecurity: d288a6f87e0f363823d2cb83e753814a6944f71a
-  private-boost: ed099134a5d12b4c4520089cd95b1d27bed45762
-  private-libtorrent: 60c6a134ad7358c0917f1317544ec00f3e146713
-  private-MobileVLCKit: 856e7cee6e7a898bc4f66e99d408072c750c1778
+  private-boost: 390bdadecb82f24bcec47068f4b041acc757d575
+  private-libtorrent: e7eb63ef125bf1f55aacca683484a7e8e4fab048
+  private-MobileVLCKit: 9f36464901370c0dd54e2fa2fe34b44effc18cb3
   private-openssl: e18da74a10edef6cf1923b62e302836e21506e12
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 
