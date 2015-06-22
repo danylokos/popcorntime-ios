@@ -337,7 +337,7 @@ using namespace libtorrent;
     }
 
     size_type file_size = ti->file_at(file_index).size;
-    int last_piece = ti->map_file(file_index, file_size, 0).piece;
+    int last_piece = ti->map_file(file_index, file_size-1, 0).piece;
     required_pieces.push_back(last_piece);
     
     for (int i=1; i<10; i++) {
