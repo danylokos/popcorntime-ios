@@ -43,6 +43,9 @@ class AnimeDetailsViewController: BaseDetailsViewController {
     override func setupCell(cell: EpisodeCell, seasonIndex: Int, episodeIndex: Int) {
         let episode = anime.seasons[seasonIndex].episodes[episodeIndex]
         cell.titleLabel.text = "\(episode.episodeNumber)"
+        if let parseData = parseData {
+          cell.watchedEpisode = parseData.isEpisodeWatched(Int(episode.seasonNumber), episode: Int(episode.episodeNumber))
+        }
     }
     
     override func setupSeasonHeader(header: SeasonHeader, seasonIndex: Int) {
@@ -51,7 +54,7 @@ class AnimeDetailsViewController: BaseDetailsViewController {
     
     override func userSelectedEpisode(cell: UICollectionViewCell, episodeIndex: Int, fromSeason seasonIndex: Int) {
         let episode = anime.seasons[seasonIndex].episodes[episodeIndex]
-        showVideoPickerPopupForEpisode(episode, fromView: cell)
+        showVideoPickerPopupForEpisode(episode, basicInfo: self.item, fromView: cell)
     }
     
 }

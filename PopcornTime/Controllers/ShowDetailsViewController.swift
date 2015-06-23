@@ -43,11 +43,9 @@ class ShowDetailsViewController: BaseDetailsViewController {
         } else {
             cell.titleLabel.text = "S\(episode.seasonNumber)E\(episode.episodeNumber)"
         }
-      if (parseData?.isEpisodeWatched(Int(episode.seasonNumber), episode: Int(episode.episodeNumber)) == true) {
-        cell.alpha = 0.5
-      } else {
-        cell.alpha = 1.0
-      }
+        if let parseData = parseData {
+          cell.watchedEpisode = parseData.isEpisodeWatched(Int(episode.seasonNumber), episode: Int(episode.episodeNumber))
+        }
     }
     
     override func setupSeasonHeader(header: SeasonHeader, seasonIndex: Int) {
@@ -59,7 +57,6 @@ class ShowDetailsViewController: BaseDetailsViewController {
         let episode = show.seasons[seasonIndex].episodes[episodeIndex]
         let videos = episode.videos
         
-        showVideoPickerPopupForEpisode(episode, fromView: cell)
-      ParseManager.sharedInstance.markEpisode(episode, basicInfo: self.item)
+        showVideoPickerPopupForEpisode(episode, basicInfo: self.item, fromView: cell)
     }
 }

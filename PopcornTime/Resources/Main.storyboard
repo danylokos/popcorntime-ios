@@ -2,7 +2,9 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A178w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dfX-fY-8T0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Colorfull Tab Bar Controller-->
@@ -551,13 +553,50 @@
                     <view key="view" contentMode="scaleToFill" id="uNZ-bT-7CZ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are logged in to Parse. It will aoutomatically sync your watching progress through all your devices." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9r-By-SGb">
+                                <rect key="frame" x="150.5" y="150" width="300" height="300.5"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="r9r-By-SGb" secondAttribute="height" multiplier="1:1" id="bg2-Qt-adb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="MW3-ef-bG6">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <animations/>
+                                <items>
+                                    <barButtonItem title="Log out" id="UvF-aD-kwq">
+                                        <connections>
+                                            <action selector="logOutPressed:" destination="Hrk-gY-Ypf" id="sB9-Df-Okw"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DjU-9B-DTO"/>
+                                    <barButtonItem enabled="NO" title="Clear all data" id="xbc-zv-1jp">
+                                        <connections>
+                                            <action selector="clearAllDataPressed:" destination="Hrk-gY-Ypf" id="cGu-73-P1g"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="MW3-ef-bG6" secondAttribute="trailing" id="2At-ob-tbr"/>
+                            <constraint firstItem="7LA-Ma-6kY" firstAttribute="top" secondItem="MW3-ef-bG6" secondAttribute="bottom" id="9ch-rP-vhj"/>
+                            <constraint firstAttribute="centerX" secondItem="r9r-By-SGb" secondAttribute="centerX" id="AXQ-qC-5Ks"/>
+                            <constraint firstAttribute="centerY" secondItem="r9r-By-SGb" secondAttribute="centerY" id="DW6-1n-2kc"/>
+                            <constraint firstItem="MW3-ef-bG6" firstAttribute="leading" secondItem="uNZ-bT-7CZ" secondAttribute="leading" id="LOh-xa-mcs"/>
+                            <constraint firstAttribute="width" secondItem="r9r-By-SGb" secondAttribute="width" multiplier="2" id="mKi-vO-kz6"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="u6R-4c-QDq">
-                        <barButtonItem key="leftBarButtonItem" title="Dissmis" id="9yx-ng-vuW">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="9yx-ng-vuW">
                             <connections>
-                                <action selector="dissmiss:" destination="Hrk-gY-Ypf" id="1WN-z2-hmv"/>
+                                <action selector="dissmiss:" destination="Hrk-gY-Ypf" id="EMs-SX-I68"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -599,9 +638,14 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Settings" id="yNe-p8-SDg">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="BhS-gs-dQn">
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="9er-hO-ljh">
                             <connections>
-                                <action selector="doneButtonTapped:" destination="PsM-1R-DZR" id="It8-u2-L3i"/>
+                                <action selector="doneButtonTapped:" destination="PsM-1R-DZR" id="hyK-bZ-4Cs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Sync" id="9io-04-mcn">
+                            <connections>
+                                <segue destination="Hrk-gY-Ypf" kind="show" id="lKP-Lc-zIe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -609,7 +653,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c2O-RD-Dnk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2666" y="-2355"/>
+            <point key="canvasLocation" x="2642" y="-2339"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="Ajz-ma-oZc">
@@ -695,7 +739,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Hrk-gY-Ypf" kind="relationship" relationship="rootViewController" id="rmO-Se-axF"/>
+                        <segue destination="PsM-1R-DZR" kind="relationship" relationship="rootViewController" id="Hga-lw-gLH"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pJk-EZ-fTT" userLabel="First Responder" sceneMemberID="firstResponder"/>

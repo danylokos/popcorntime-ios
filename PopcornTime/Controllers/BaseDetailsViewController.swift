@@ -40,16 +40,18 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
     let episodeCellReuseIdentifier = "EpisodeCell"
     
     var layout: StratchyHeaderLayout?
-    
+  
+    // Harmless object, calling it's methods when not connected to Parse does nothing / returns default values
+    var parseData: ParseShowData?
+  
+  
     var item: BasicInfo! {
         didSet {
+            reloadShowInfoFromParse()
             navigationItem.title = item.title
-          parseData = ParseManager.sharedInstance.parseEpisodesData(item)
             reloadData()
         }
     }
-  
-  var parseData: ParseShowData?
 
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet{
@@ -88,7 +90,16 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
         header?.headerSize = headerSize
         layout?.headerSize = headerSize
     }
-    
+  
+    // MARK: - Parse
+    func reloadShowInfoFromParse() {
+      ParseManager.sharedInstance.parseEpisodesData(item, handler: { (parseShowData) -> Void in
+        self.parseData = parseShowData
+        self.reloadData()
+      })
+    }
+  
+  
     // MARK: - Favorites
     func addToFavorites() {
         DataManager.sharedManager().addToFavorites(item)
@@ -105,7 +116,12 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
         
     }
     
-    func startPlayback(magnetLink: String, loadingTitle: String) {
+    func startPlayback(episode: Episode, basicInfo: BasicInfo, magnetLink: String, loadingTitle: String) {
+      
+        // Mark on Parse
+        ParseManager.sharedInstance.markEpisode(episode, basicInfo: basicInfo)
+        reloadShowInfoFromParse()
+      
         let loadingVC = self.storyboard?.instantiateViewControllerWithIdentifier("loadingViewController") as! LoadingViewController
         loadingVC.delegate = self
         loadingVC.status = "Downloading..."
@@ -225,7 +241,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
         }
     }
     
-    func showVideoPickerPopupForEpisode(episode: Episode, fromView view: UIView) {
+    func showVideoPickerPopupForEpisode(episode: Episode, basicInfo: BasicInfo, fromView view: UIView) {
         let videos = episode.videos
         if (videos.count > 0) {
             
@@ -247,7 +263,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
                     let magnetLink = video.magnetLink
                     let episodeTitle = episode.title ?? ""
                     let loadingTitle = "\(episodeTitle) - \(title)"
-                    self.startPlayback(magnetLink, loadingTitle: loadingTitle)
+                    self.startPlayback(episode, basicInfo: basicInfo , magnetLink: magnetLink, loadingTitle: loadingTitle)
                 })
                 
                 actionSheetController.addAction(action)
@@ -257,7 +273,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
             popOver?.sourceView  = view
             popOver?.sourceRect = view.bounds
             popOver?.permittedArrowDirections = UIPopoverArrowDirection.Any
-            
+          
             self.presentViewController(actionSheetController, animated: true, completion: nil)
         }
     }

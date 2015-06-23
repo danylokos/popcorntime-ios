@@ -10,26 +10,23 @@ import UIKit
 
 class ParseViewController: UIViewController, PFLogInViewControllerDelegate {
   
+  private var canPromptLogin = true
+  
   // MARK: - UIViewController
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    promptLoginIfNeeded(false)
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    if canPromptLogin {
+      promptLoginIfNeeded(true)
+    }
   }
   
   // MARK: - Login
   
   func promptLoginIfNeeded(animated: Bool) {
     
-    var currentUser = PFUser.currentUser()
-    if currentUser != nil {
-      // Do stuff with the user
-      
-      PFUser.logOutInBackgroundWithBlock({ (error) -> Void in
-        println("logged out")
-      })
-    } else {
+    var currentUser = ParseManager.sharedInstance.user
+    if currentUser == nil {
       // Show the signup or login screen
       var logInController = PFLogInViewController()
       logInController.delegate = self
@@ -44,20 +41,29 @@ class ParseViewController: UIViewController, PFLogInViewControllerDelegate {
   // MARK: PFLogInViewControllerDelegate
   
   func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
-    //
+    dissmiss(nil)
   }
   
   func logInViewController(logInController: PFLogInViewController, didFailToLogInWithError error: NSError?) {
-    //
   }
   
   func logInViewControllerDidCancelLogIn(logInController: PFLogInViewController) {
-    //
+    dissmiss(nil)
+    dissmiss(nil)
   }
   
   // MARK: - Actions
   
-  @IBAction func dissmiss(sender: UIBarButtonItem) {
+  @IBAction func dissmiss(sender: AnyObject?) {
+    canPromptLogin = false
     self.dismissViewControllerAnimated(true, completion: nil)
   }
+  
+  @IBAction func logOutPressed(sender: UIBarButtonItem) {
+    PFUser.logOut()
+    dissmiss(nil)
+  }
+  @IBAction func clearAllDataPressed(sender: UIBarButtonItem) {
+  }
+  
 }
