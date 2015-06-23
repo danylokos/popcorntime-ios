@@ -44,9 +44,12 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
     var item: BasicInfo! {
         didSet {
             navigationItem.title = item.title
+          parseData = ParseManager.sharedInstance.parseEpisodesData(item)
             reloadData()
         }
     }
+  
+  var parseData: ParseShowData?
 
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet{
