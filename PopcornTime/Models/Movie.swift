@@ -14,20 +14,24 @@ class Movie: BasicInfo {
     required init(dictionary: NSDictionary) {
         super.init(dictionary: dictionary)
 
-        identifier = dictionary["ImdbCode"] as! String
-        title = dictionary["MovieTitleClean"] as? String
-        year = dictionary["MovieYear"] as? String
+        let id = dictionary["id"] as! Int
+        identifier = "\(id)"
+        title = dictionary["title"] as? String
+        year = dictionary["year"] as? String
         
-        if let cover = dictionary["CoverImage"] as? String {
-            images = [Image]()
-
-            var URL = NSURL(string: cover)
-            var image = Image(URL: URL!, type: .Poster)
+        images = [Image]()
+        if let cover = dictionary["medium_cover_image"] as? String {
+            var image = Image(URL: NSURL(string: cover)!, type: .Poster)
             images.append(image)
         }
         
+        if let cover = dictionary["background_image"] as? String {
+            var image = Image(URL: NSURL(string: cover)!, type: .Banner)
+            images.append(image)
+        }
+
         smallImage = self.images.filter({$0.type == ImageType.Poster}).first
-        bigImage = smallImage
+        bigImage = self.images.filter({$0.type == ImageType.Banner}).first
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -37,14 +41,19 @@ class Movie: BasicInfo {
     override func update(dictionary: NSDictionary) {
         videos.removeAll(keepCapacity: true)
         
-        let movieList = dictionary["MovieList"] as! NSArray
-        for movieDict in movieList  {
-            let quality = movieDict["Quality"] as! String
-            let title = movieDict["MovieTitleClean"]as! String
-            let magnetLink = movieDict["TorrentMagnetUrl"]as! String
-
-            var video = Video(name: title, quality: quality, size: 0, duration: 0, subGroup: nil, magnetLink: magnetLink)
-            videos.append(video)
+        let title = dictionary["title"] as! String
+//        let runtime = dictionary["runtime"] as! UInt
+        
+        if let movieList = dictionary["torrents"] as? NSArray {
+            for movieDict in movieList {
+                let quality = movieDict["quality"] as! String
+                let hash = movieDict["hash"] as! String
+                let magnetLink = "magnet:?xt=urn:btih:\(hash)&tr=udp://open.demonii.com:1337&tr=udp://tracker.coppersurfer.tk:6969"
+//                let size = movieDict["size_bytes"] as! UInt
+                
+                var video = Video(name: title, quality: quality, size: 0, duration: 0, subGroup: nil, magnetLink: magnetLink)
+                videos.append(video)
+            }
         }
     }
 }

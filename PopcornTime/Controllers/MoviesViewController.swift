@@ -16,31 +16,9 @@ class MoviesViewController: PagedViewController {
         }
     }
 
-    func unify(newItems: [BasicInfo]) -> [BasicInfo] {
-        var ids = newItems.map( { $0.identifier } )
-        
-        var existingUniqueIds: [String] = self.items.map( { $0.identifier } )
-        var uniqueIds = NSSet(array: ids).allObjects as! [String]
-        
-        var filteredUniqueIds = [String]()
-        for uniqueId in uniqueIds {
-            if !contains(existingUniqueIds, uniqueId) {
-                filteredUniqueIds.append(uniqueId)
-            }
-        }
-        
-        uniqueIds = filteredUniqueIds
-        var uniqueItems = [BasicInfo]()
-        for uniqueId in uniqueIds {
-            var item = newItems.filter( {$0.identifier == uniqueId} ).first
-            uniqueItems.append(item!)
-        }
-        return uniqueItems
-    }
-
     override func map(response: [AnyObject]) -> [BasicInfo] {
         var items = response.map({ Movie(dictionary: $0 as! NSDictionary) }) as [BasicInfo]
-        return unify(items)
+        return items
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

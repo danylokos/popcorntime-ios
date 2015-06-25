@@ -360,11 +360,10 @@ using namespace libtorrent;
     BOOL allRequiredPiecesDownloaded = YES;
     for(std::vector<int>::size_type i=0; i!=required_pieces.size(); i++) {
         int piece = required_pieces[i];
-        if (!th.have_piece(piece)) {
-            allRequiredPiecesDownloaded = NO;
-            break;
-        } else {
+        if (th.have_piece(piece)) {
             requiredPiecesDownloaded++;
+        } else {
+            allRequiredPiecesDownloaded = NO;            
         }
     }
     

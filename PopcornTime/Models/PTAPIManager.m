@@ -11,13 +11,20 @@
 #import <UIKit/UIKit.h>
 
 NSUInteger const PTAPIManagerResultsLimit = 30;
-NSString *const PTAPIManagerMoviesEndPoint = @"http://ytspt.re/api";
+NSString *const PTAPIManagerMoviesEndPoint = @"http://cloudflare.com/api/v2";
 NSString *const PTAPIManagerShowsEndPoint = @"http://eztvapi.re";
 NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
 
 @implementation PTAPIManager
 
+static NSDictionary *YTSHTTPHeaders;
+
 #pragma mark - Public API
+
++ (void)initialize
+{
+    YTSHTTPHeaders = @{@"Host": @"eqwww.image.yt"};
+}
 
 + (instancetype)sharedManager
 {
@@ -73,10 +80,25 @@ NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
             success:(void(^)(id JSONObject))success
             failure:(PTAPIManagerFailure)failure
 {
+    return [self dataFromURL:URL HTTPheaders:nil success:success failure:failure];
+}
+
+- (void)dataFromURL:(NSURL *)URL
+            HTTPheaders:(NSDictionary *)HTTPheaders
+            success:(void(^)(id JSONObject))success
+            failure:(PTAPIManagerFailure)failure
+{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
-    [[[NSURLSession sharedSession] dataTaskWithURL:URL
-                                 completionHandler:
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    if (HTTPheaders) {
+        for (NSString *key in HTTPheaders.allKeys) {
+            [request addValue:HTTPheaders[key] forHTTPHeaderField:key];
+        }
+    }
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request
+                                     completionHandler:
       ^(NSData *data, NSURLResponse *response, NSError *error) {
           dispatch_async(dispatch_get_main_queue(), ^{
 
@@ -103,18 +125,13 @@ NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
                   success:(PTAPIManagerSuccessItems)success
                   failure:(PTAPIManagerFailure)failure
 {
-    NSString *path = [NSString stringWithFormat:@"list.json?limit=%lu&order=desc&sort=seeds&set=%ld", (long)PTAPIManagerResultsLimit, (long)page + 1];
+    NSString *path = [NSString stringWithFormat:@"list_movies.json?"
+                      "page=%ld&limit=%ld&order_by=desc&sort_by=seeds", (long)page + 1, (long)PTAPIManagerResultsLimit];
+    
     NSString *URLString = [PTAPIManagerMoviesEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] HTTPheaders:YTSHTTPHeaders success:^(id JSONObject) {
         if (success) {
-            NSArray *items = [((NSDictionary *)JSONObject) objectForKey:@"MovieList"];
-            NSArray *uniqueIds = [items valueForKeyPath:@"@distinctUnionOfObjects.ImdbCode"];
-            NSMutableArray *uniqueItems = [NSMutableArray array];
-            for (NSString *uniqueId in uniqueIds) {
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ImdbCode LIKE %@", uniqueId];
-                id item = [[items filteredArrayUsingPredicate:predicate] firstObject];
-                [uniqueItems addObject:item];
-            }
+            NSArray *items = [[((NSDictionary *)JSONObject) objectForKey:@"data"] objectForKey:@"movies"];
             success(items);
         }
     } failure:failure];
@@ -123,11 +140,12 @@ NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
                 success:(PTAPIManagerSuccessItem)success
                 failure:(PTAPIManagerFailure)failure
 {
-    NSString *path = [NSString stringWithFormat:@"listimdb.json?imdb_id=%@", imdbId];
+    NSString *path = [NSString stringWithFormat:@"movie_details.json?movie_id=%@", imdbId];
     NSString *URLString = [PTAPIManagerMoviesEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString]success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] HTTPheaders:YTSHTTPHeaders success:^(id JSONObject) {
         if (success) {
-            success(JSONObject);
+            NSDictionary *item = [((NSDictionary *)JSONObject) objectForKey:@"data"];
+            success(item);
         }
     } failure:failure];
 }
@@ -136,12 +154,12 @@ NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
                        success:(PTAPIManagerSuccessItems)success
                        failure:(PTAPIManagerFailure)failure
 {
-    NSString *path = [[NSString stringWithFormat:@"list.json?limit=%ld&keywords=%@&order=desc&sort=seeds&set=1", (long)PTAPIManagerResultsLimit, name]
+    NSString *path = [[NSString stringWithFormat:@"list_movies.json?limit=%ld&query_term=%@", (long)PTAPIManagerResultsLimit, name]
                       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *URLString = [PTAPIManagerMoviesEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString]success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] HTTPheaders:YTSHTTPHeaders success:^(id JSONObject) {
         if (success) {
-            NSArray *items = [((NSDictionary *)JSONObject) objectForKey:@"MovieList"];
+            NSArray *items = [[((NSDictionary *)JSONObject) objectForKey:@"data"] objectForKey:@"movies"];
             success(items);
         }
     } failure:failure];
