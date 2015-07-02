@@ -8,6 +8,11 @@
 
 import Foundation
 
+protocol ContainsEpisodes {
+    func episodeFor(#seasonIndex: Int, episodeIndex: Int) -> Episode
+    func episodesFor(#seasonIndex: Int) -> [Episode]
+}
+
 protocol BasicInfoProtocol {
     var identifier: String! {get}
     var title: String? {get}

@@ -12,5 +12,8 @@ pod 'private-libtorrent'
 pod 'private-openssl'
 pod 'Reachability'
 pod 'CocoaSecurity'
+pod 'ParseUI'
+pod 'ParseFacebookUtilsV4'
+pod 'FBSDKCoreKit'
 
 end

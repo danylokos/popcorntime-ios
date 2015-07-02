@@ -115,3 +115,14 @@ class Show: BasicInfo {
         }
     }
 }
+
+extension Show: ContainsEpisodes {
+    func episodeFor(#seasonIndex: Int, episodeIndex: Int) -> Episode {
+        let episode = seasons[seasonIndex].episodes[episodeIndex]
+        return episode
+    }
+    
+    func episodesFor(#seasonIndex: Int) -> [Episode] {
+        return seasons[seasonIndex].episodes
+    }
+}
