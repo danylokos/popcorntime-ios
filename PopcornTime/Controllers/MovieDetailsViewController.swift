@@ -52,14 +52,14 @@ class MovieDetailsViewController: BaseDetailsViewController {
         }
         cell.titleLabel.text = title
         if let parseData = parseData {
-          cell.watchedEpisode = parseData.isEpisodeWatched(0, episode: 0)
+            cell.watchedEpisode = parseData.isEpisodeWatched(0, episode: 0)
         }
     }
     
     override func setupSeasonHeader(header: SeasonHeader, seasonIndex: Int) {
     }
     
-    override func userSelectedEpisode(cell: UICollectionViewCell, episodeIndex: Int, fromSeason seasonIndex: Int) {
+    override func cellWasPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
         let video = movie.videos[episodeIndex]
         let magnetLink = video.magnetLink
         let title = movie.title ?? ""

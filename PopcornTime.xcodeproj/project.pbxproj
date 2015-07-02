@@ -258,7 +258,9 @@
 				7F8824C81A227A0100E2710A /* Products */,
 				4EBD161BC990BBB37DA12395 /* Pods */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		7F8824C81A227A0100E2710A /* Products */ = {
 			isa = PBXGroup;
