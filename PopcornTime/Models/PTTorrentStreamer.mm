@@ -219,21 +219,21 @@ using namespace libtorrent;
         const alert *ptr = _session->wait_for_alert(max_wait);
         if (ptr != nullptr) {
             _session->pop_alerts(&deque);
-            long size = deque.size();
-            
-            for (int i=0; i<size; i++) {
-                alert *alert = deque[i];
+            for (std::deque<alert *>::iterator it=deque.begin(); it != deque.end(); ++it) {
+                std::unique_ptr<alert> alert(*it);
 //                NSLog(@"type:%d msg:%s", alert->type(), alert->message().c_str());
-
-                if (alert->type() == metadata_received_alert::alert_type) {
-                    [self metadataReceivedAlert:(metadata_received_alert *)alert];
-                }
-                else if (alert->type() == block_finished_alert::alert_type) {
-                    [self pieceFinishedAlert:(piece_finished_alert *)alert];
-                }
-                // In case the video file is already fully downloaded
-                else if (alert->type() == torrent_finished_alert::alert_type) {
-                    [self torrentFinishedAlert:(torrent_finished_alert *)alert];
+                switch (alert->type()) {
+                    case metadata_received_alert::alert_type:
+                        [self metadataReceivedAlert:(metadata_received_alert *)alert.get()];
+                        break;
+                    case block_finished_alert::alert_type:
+                        [self pieceFinishedAlert:(piece_finished_alert *)alert.get()];
+                        break;
+                    // In case the video file is already fully downloaded
+                    case torrent_finished_alert::alert_type:
+                        [self torrentFinishedAlert:(torrent_finished_alert *)alert.get()];
+                        break;
+                    default: break;
                 }
             }
             deque.clear();
