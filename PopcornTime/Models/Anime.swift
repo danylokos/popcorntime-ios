@@ -107,3 +107,14 @@ class Anime: BasicInfo {
         return numbers
     }
 }
+
+extension Anime: ContainsEpisodes {
+    func episodeFor(#seasonIndex: Int, episodeIndex: Int) -> Episode {
+        let episode = seasons[seasonIndex].episodes[episodeIndex]
+        return episode
+    }
+    
+    func episodesFor(#seasonIndex: Int) -> [Episode] {
+        return seasons[seasonIndex].episodes
+    }
+}

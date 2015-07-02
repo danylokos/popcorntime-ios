@@ -8,12 +8,14 @@
 
 import UIKit
 
+/// With this protocol we encapsulate calls of collectionView indexPathes. For now we have one extra section at the top (empty one with stratchy header), this way if anything changes here we will change all logic here, and all users of this protocol will not have to hcange anything. So it's a good idea to use seasonIndex, episodeIndex instead of indexPathes.
 protocol DetailViewControllerDataSource {
     func numberOfSeasons() -> Int
     func numberOfEpisodesInSeason(seasonsIndex: Int) -> Int
     func setupCell(cell: EpisodeCell, seasonIndex: Int, episodeIndex: Int)
     func setupSeasonHeader(header: SeasonHeader, seasonIndex: Int)
-    func userSelectedEpisode(cell: UICollectionViewCell, episodeIndex: Int, fromSeason seasonIndex: Int)
+    func cellWasPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int)
+    func cellWasLongPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int)
 }
 
 class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControllerDelegate, LoadingViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, DetailViewControllerDataSource {
@@ -71,6 +73,23 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
         super.viewDidLoad()
         
         configureFavoriteBarButton()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: Selector("longPress:"))
+        longPress.minimumPressDuration = 0.5
+        longPress.delaysTouchesBegan = true
+        collectionView.addGestureRecognizer(longPress)
+    }
+    
+    final func longPress(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .Ended {
+            return
+        }
+        let p = gesture.locationInView(collectionView)
+        if let indexPath = collectionView.indexPathForItemAtPoint(p) {
+            if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
+                cellWasLongPressed(cell, seasonIndex: indexPath.section - 1, episodeIndex: indexPath.item)
+            }
+        }
     }
     
     func configureFavoriteBarButton() {
@@ -97,6 +116,32 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
         self.parseData = parseShowData
         self.reloadData()
       })
+    }
+    
+    func promptToMarkEpisodesWatched(#lastEpisodeToMarked: Episode, basicInfo: BasicInfo, allSeasonEpisodes: [Episode], popoverView: UIView) {
+        if (ParseManager.sharedInstance.user != nil) {
+            let actionSheetController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            actionSheetController.addAction(cancelAction)
+            
+            let markAllEpisodesBeforeThis = UIAlertAction(title: "Mark watched episodes before this one", style: .Destructive) { (action) -> Void in
+                let episodesBefore = allSeasonEpisodes.filter(){ episodeToCompere in
+                    return (episodeToCompere.episodeNumber) <= lastEpisodeToMarked.episodeNumber
+                }
+                ParseManager.sharedInstance.markEpisodes(episodesBefore, basicInfo: basicInfo, completionHandler: { (success, error) -> Void in
+                    self.reloadShowInfoFromParse()
+                })
+            }
+            actionSheetController.addAction(markAllEpisodesBeforeThis)
+            
+            var popOver = actionSheetController.popoverPresentationController
+            popOver?.sourceView  = view
+            popOver?.sourceRect = view.bounds
+            popOver?.permittedArrowDirections = UIPopoverArrowDirection.Any
+            
+            self.presentViewController(actionSheetController, animated: true, completion: nil)
+        }
     }
   
   
@@ -237,7 +282,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
     
     final func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
-            self.userSelectedEpisode(cell, episodeIndex: indexPath.row, fromSeason: indexPath.section - 1)
+            cellWasPressed(cell, seasonIndex: indexPath.section - 1, episodeIndex: indexPath.item)
         }
     }
     
@@ -297,8 +342,11 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
         assertionFailure("Should be overriden by subclass")
     }
     
-    func userSelectedEpisode(cell: UICollectionViewCell, episodeIndex: Int, fromSeason seasonIndex: Int) {
+    func cellWasPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
         assertionFailure("Should be overriden by subclass")
     }
     
+    func cellWasLongPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
+        
+    }
 }
