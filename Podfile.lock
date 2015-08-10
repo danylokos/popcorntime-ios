@@ -1,5 +1,31 @@
 PODS:
+  - Bolts (1.2.0):
+    - Bolts/AppLinks (= 1.2.0)
+    - Bolts/Tasks (= 1.2.0)
+  - Bolts/AppLinks (1.2.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.2.0)
   - CocoaSecurity (1.2.4)
+  - FBSDKCoreKit (4.4.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc (= 4.4.0)
+    - FBSDKCoreKit/no-arc (= 4.4.0)
+  - FBSDKCoreKit/arc (4.4.0):
+    - Bolts (~> 1.1)
+  - FBSDKCoreKit/no-arc (4.4.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc
+  - FBSDKLoginKit (4.4.0):
+    - FBSDKCoreKit
+  - Parse (1.7.5.3):
+    - Bolts/Tasks (>= 1.2.0)
+  - ParseFacebookUtilsV4 (1.7.5.3):
+    - Bolts/Tasks (>= 1.2.0)
+    - FBSDKCoreKit (~> 4.0)
+    - FBSDKLoginKit (~> 4.0)
+    - Parse (~> 1.7.5.3)
+  - ParseUI (1.1.4):
+    - Parse (~> 1.7)
   - private-boost (1.58.0)
   - private-libtorrent (1.0.5)
   - private-MobileVLCKit (2.5.150604)
@@ -8,6 +34,9 @@ PODS:
 
 DEPENDENCIES:
   - CocoaSecurity
+  - FBSDKCoreKit
+  - ParseFacebookUtilsV4
+  - ParseUI
   - private-boost
   - private-libtorrent
   - private-MobileVLCKit
@@ -15,7 +44,13 @@ DEPENDENCIES:
   - Reachability
 
 SPEC CHECKSUMS:
+  Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CocoaSecurity: d288a6f87e0f363823d2cb83e753814a6944f71a
+  FBSDKCoreKit: 75bdd75c980e811db218488d99dd93b7740f4474
+  FBSDKLoginKit: 02a9254a4c132412fa03577b0d53e936d068a7fb
+  Parse: 373adbb1ad2e34d383542c3b28f678c49ebe4881
+  ParseFacebookUtilsV4: ea5db22e87b91cbf99b9d156642e2b97a4db7d51
+  ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
   private-boost: 390bdadecb82f24bcec47068f4b041acc757d575
   private-libtorrent: e7eb63ef125bf1f55aacca683484a7e8e4fab048
   private-MobileVLCKit: 9f36464901370c0dd54e2fa2fe34b44effc18cb3
