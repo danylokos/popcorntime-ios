@@ -67,18 +67,17 @@ class BaseCollectionViewController: BarHidingViewController, UICollectionViewDel
             let item = items[indexPath.row]
             cell.title = item.title
             
-            if let imageItem = item.smallImage {
-                if let image = imageItem.image {
-                    cell.image = image
-                } else {
-                    ImageProvider.sharedInstance.imageFromURL(URL: imageItem.URL) { (image) -> () in
-                        imageItem.image = image
-                        if let _ = collectionView.cellForItemAtIndexPath(indexPath) {
-                            collectionView.reloadItemsAtIndexPaths([indexPath])
-                        }
+            if let image = item.smallImage?.image {
+                cell.image = image
+            } else {
+                ImageProvider.sharedInstance.imageFromURL(URL: item.smallImage?.URL) { (downloadedImage) -> () in
+                    item.smallImage?.image = downloadedImage
+                    if let _ = collectionView.cellForItemAtIndexPath(indexPath) {
+                        collectionView.reloadItemsAtIndexPaths([indexPath])
                     }
                 }
             }
+
             return cell
         }
     }

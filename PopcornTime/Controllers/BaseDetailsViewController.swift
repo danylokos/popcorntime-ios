@@ -244,27 +244,21 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
                 header = (collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: firstHeaderReuseIdentifier, forIndexPath: indexPath) as! StratchyHeader)
                 header?.delegate = layout
 
-                if let header = header {
-                    if let imageItem = item.bigImage {
-                        if let image = imageItem.image {
-                            header.image = image
-                        } else {
-                            ImageProvider.sharedInstance.imageFromURL(URL: imageItem.URL) { (image) -> () in
-                                imageItem.image = image
-                                header.image = image
-                            }
-                        }
+                if let image = item.bigImage?.image {
+                    header?.image = image
+                } else {
+                    ImageProvider.sharedInstance.imageFromURL(URL: item.bigImage?.URL) { (downloadedImage) -> () in
+                        self.item.bigImage?.image = downloadedImage
+                        self.header?.image = downloadedImage
                     }
-                    //
-                    if let imageItem = item.smallImage {
-                        if let image = imageItem.image {
-                            header.foregroundImage.image = image
-                        } else {
-                            ImageProvider.sharedInstance.imageFromURL(URL: imageItem.URL) { (image) -> () in
-                                imageItem.image = image
-                                header.foregroundImage.image = image
-                            }
-                        }
+                }
+                
+                if let image = item.smallImage?.image {
+                    header?.foregroundImage.image = image
+                } else {
+                    ImageProvider.sharedInstance.imageFromURL(URL: item.smallImage?.URL) { (downloadedImage) -> () in
+                        self.item.smallImage?.image = downloadedImage
+                        self.header?.foregroundImage.image = downloadedImage
                     }
                 }
             }
