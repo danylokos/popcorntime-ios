@@ -23,14 +23,13 @@ class ParseViewController: UIViewController, PFLogInViewControllerDelegate {
     
     func promptLoginIfNeeded(animated: Bool) {
         
-        var currentUser = ParseManager.sharedInstance.user
+        let currentUser = ParseManager.sharedInstance.user
         if currentUser == nil {
             // Show the signup or login screen
-            var logInController = PFLogInViewController()
+            let logInController = PFLogInViewController()
             logInController.delegate = self
             logInController.fields =
-                PFLogInFields.DismissButton
-                | PFLogInFields.Facebook
+                [PFLogInFields.DismissButton, PFLogInFields.Facebook]
             logInController.facebookPermissions = ["public_profile"]
             self.presentViewController(logInController, animated:animated, completion: nil)
         }

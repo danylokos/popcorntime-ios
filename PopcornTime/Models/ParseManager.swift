@@ -63,15 +63,14 @@ class ParseManager: NSObject {
     
     func markEpisode(episodeInfo: Episode, basicInfo: BasicInfo) {
         if let user = user {
-            var query = PFQuery(className:showClassName)
+            let query = PFQuery(className:showClassName)
             query.whereKey(userKey, equalTo:user)
             query.whereKey(showIdKey, equalTo:basicInfo.identifier)
-            query.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
+            query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
                 
                 var show: PFObject
                 
-                if let object = objects?.first as? PFObject {
+                if let object = objects?.first as PFObject? {
                     show = object
                 } else {
                     show = PFObject(className: self.showClassName)
@@ -83,18 +82,18 @@ class ParseManager: NSObject {
                     relation.addObject(user)
                 }
                 
-                show.saveInBackgroundWithBlock({ (success) -> Void in
+                show.saveInBackgroundWithBlock({ (success, error) -> Void in
+
                     let queryEpisode = PFQuery(className:self.episodeClassName)
                     queryEpisode.whereKey(self.seasonKey, equalTo:episodeInfo.seasonNumber)
                     queryEpisode.whereKey(self.episodeKey, equalTo:episodeInfo.episodeNumber)
                     queryEpisode.whereKey(self.showKey, equalTo: show)
                     
-                    queryEpisode.findObjectsInBackgroundWithBlock {
-                        (episodes: [AnyObject]?, episodeError: NSError?) -> Void in
-                        
+                    queryEpisode.findObjectsInBackgroundWithBlock { (episodes, episodeError) -> Void in
+
                         var episode: PFObject
                         
-                        if let ep = episodes?.first as? PFObject {
+                        if let ep = episodes?.first as PFObject? {
                             episode = ep
                         } else {
                             let newEpisode = PFObject(className: self.episodeClassName)
@@ -119,23 +118,23 @@ class ParseManager: NSObject {
         if episodesInfo.count == 0 {
             return
         }
-        
+
         let episodeNumbers = episodesInfo.map(){ episode in
             return episode.episodeNumber
         }
         let seasonNumber = episodesInfo.first!.seasonNumber
-        
+
         
         if let user = user {
-            var query = PFQuery(className:showClassName)
+            let query = PFQuery(className:showClassName)
             query.whereKey(userKey, equalTo:user)
             query.whereKey(showIdKey, equalTo:basicInfo.identifier)
             query.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
+                (objects, error) -> Void in
+
                 var show: PFObject
-                
-                if let object = objects?.first as? PFObject {
+
+                if let object = objects?.first as PFObject? {
                     show = object
                 } else {
                     show = PFObject(className: self.showClassName)
@@ -146,33 +145,33 @@ class ParseManager: NSObject {
                     let relation = show.relationForKey(self.userKey)
                     relation.addObject(user)
                 }
-                
-                show.saveInBackgroundWithBlock({ (success) -> Void in
+
+                show.saveInBackgroundWithBlock({ (success, error) -> Void in
                     let queryEpisode = PFQuery(className:self.episodeClassName)
                     queryEpisode.whereKey(self.seasonKey, equalTo: seasonNumber)
                     queryEpisode.whereKey(self.episodeKey, containedIn: episodeNumbers)
                     queryEpisode.whereKey(self.showKey, equalTo: show)
                     
-                    queryEpisode.findObjectsInBackgroundWithBlock {
-                        (results: [AnyObject]?, episodeError: NSError?) -> Void in
+                    queryEpisode.findObjectsInBackgroundWithBlock { (results, episodeError) -> Void in
                         
                         var marked = [UInt]()
                         var pfObjects = [PFObject]()
                         
-                        if let parseEpisodes = results as? [PFObject] {
-                            println("\(parseEpisodes.count): episodes already on Parse")
+                        if let parseEpisodes = results as [PFObject]? {
+                            print("\(parseEpisodes.count): episodes already on Parse")
                             for parseEp in parseEpisodes {
                                 parseEp.setObject(true, forKey: self.watchedKey)
                                 if let parseEpNumber = parseEp.objectForKey(self.episodeKey) as? UInt {
                                     marked.append(parseEpNumber)
                                     pfObjects.append(parseEp)
-                                    println("parse ep:\(parseEpNumber) marked")
+                                    print("parse ep:\(parseEpNumber) marked")
                                 }
                             }
                         }
+            
                         
                         for ep in episodesInfo {
-                            if contains(marked, ep.episodeNumber) == false {
+                            if marked.contains(ep.episodeNumber) == false {
                                 let newEpisode = PFObject(className: self.episodeClassName)
                                 let relationShow = newEpisode.relationForKey(self.showKey)
                                 relationShow.addObject(show)
@@ -181,7 +180,7 @@ class ParseManager: NSObject {
                                 newEpisode.setObject(true, forKey: self.watchedKey)
                                 marked.append(ep.episodeNumber)
                                 pfObjects.append(newEpisode)
-                                println("ep:\(ep.episodeNumber) marked")
+                                print("ep:\(ep.episodeNumber) marked")
                             }
                         }
                         
@@ -194,16 +193,19 @@ class ParseManager: NSObject {
     
     func parseEpisodesData(basicInfo: BasicInfo, handler: (ParseShowData) -> Void) {
         if let user = user {
-            var query = PFQuery(className: showClassName)
+            let query = PFQuery(className: showClassName)
             query.whereKey(userKey, equalTo: user)
             query.whereKey(showIdKey, equalTo:basicInfo.identifier)
             query.findObjectsInBackgroundWithBlock({ (results, error) -> Void in
-                if let show = results?.first as? PFObject {
+                if let show = results?.first as PFObject? {
                     let queryEpisode = PFQuery(className: self.episodeClassName)
                     queryEpisode.whereKey(self.showKey, equalTo: show)
-                    if let episodes = queryEpisode.findObjects() as? [PFObject] {
+                    do {
+                        let episodes = try queryEpisode.findObjects() as [PFObject]
                         let parserData = ParseShowData(episodesFromParse: episodes)
                         handler(parserData)
+                    } catch let error as  NSError {
+                        print(error)
                     }
                 }
             })

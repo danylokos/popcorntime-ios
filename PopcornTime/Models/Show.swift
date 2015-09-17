@@ -26,18 +26,18 @@ class Show: BasicInfo {
         if let imagesDict = dictionary["images"] as? NSDictionary {
             images = [Image]()
             if let banner = imagesDict["banner"] as? String {
-                var URL = NSURL(string: thumbnail(banner))
-                var image = Image(URL: URL!, type: .Banner)
+                let URL = NSURL(string: thumbnail(banner))
+                let image = Image(URL: URL!, type: .Banner)
                 images.append(image)
             }
             if let fanart = imagesDict["fanart"] as? String {
-                var URL = NSURL(string: thumbnail(fanart))
-                var image = Image(URL: URL!, type: .Fanart)
+                let URL = NSURL(string: thumbnail(fanart))
+                let image = Image(URL: URL!, type: .Fanart)
                 images.append(image)
             }
             if let poster = imagesDict["poster"] as? String {
-                var URL = NSURL(string: thumbnail(poster))
-                var image = Image(URL: URL!, type: .Poster)
+                let URL = NSURL(string: thumbnail(poster))
+                let image = Image(URL: URL!, type: .Poster)
                 images.append(image)
             }
             
@@ -47,7 +47,7 @@ class Show: BasicInfo {
     }
 
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
     }
 
     override func update(dictionary: NSDictionary) {
@@ -75,7 +75,7 @@ class Show: BasicInfo {
                 videos.append(video)
             }
             
-            videos = videos.sorted({ (a, b) -> Bool in
+            videos = videos.sort({ (a, b) -> Bool in
                 var aQuality: Int = 0
                 NSScanner(string: a.quality!).scanInteger(&aQuality)
 
@@ -98,8 +98,8 @@ class Show: BasicInfo {
             allEpisodes.append(episode)
         }
         
-        var seasonsNumbers = allSeasonsNumbers.keys.array
-        seasonsNumbers.sort({ (a, b) -> Bool in
+        var seasonsNumbers = Array(allSeasonsNumbers.keys)
+        seasonsNumbers.sortInPlace({ (a, b) -> Bool in
             return a < b
         })
         
@@ -117,12 +117,12 @@ class Show: BasicInfo {
 }
 
 extension Show: ContainsEpisodes {
-    func episodeFor(#seasonIndex: Int, episodeIndex: Int) -> Episode {
+    func episodeFor(seasonIndex seasonIndex: Int, episodeIndex: Int) -> Episode {
         let episode = seasons[seasonIndex].episodes[episodeIndex]
         return episode
     }
     
-    func episodesFor(#seasonIndex: Int) -> [Episode] {
+    func episodesFor(seasonIndex seasonIndex: Int) -> [Episode] {
         return seasons[seasonIndex].episodes
     }
 }

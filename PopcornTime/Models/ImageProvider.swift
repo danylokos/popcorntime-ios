@@ -12,14 +12,14 @@ class ImageProvider: NSObject {
     
     static let sharedInstance = ImageProvider()
 
-    func imageFromURL(#URL: NSURL?, completionBlock: (downloadedImage: UIImage?)->()) {
+    func imageFromURL(URL URL: NSURL?, completionBlock: (downloadedImage: UIImage?)->()) {
         if URL == nil {
             return
         }
         
-        SDWebImageDownloader.sharedDownloader().downloadImageWithURL(URL, options: nil, progress: nil)
+        SDWebImageDownloader.sharedDownloader().downloadImageWithURL(URL, options: [], progress: nil)
             { (image, data, error, finished) -> Void in
-                if let _ = error { println("\(error)") }
+                if let _ = error { print("\(error)") }
                 dispatch_async(dispatch_get_main_queue(), {
                     completionBlock(downloadedImage: image)
                 })

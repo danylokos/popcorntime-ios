@@ -22,8 +22,8 @@ class Anime: BasicInfo {
         if let poster = dictionary["malimg"] as? String {
             images = [Image]()
             
-            var URL = NSURL(string: poster)
-            var image = Image(URL: URL!, type: .Poster)
+            let URL = NSURL(string: poster)
+            let image = Image(URL: URL!, type: .Poster)
             images.append(image)
         }
         
@@ -32,7 +32,7 @@ class Anime: BasicInfo {
     }
 
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
     }
     
     override func update(dictionary: NSDictionary) {
@@ -86,7 +86,7 @@ class Anime: BasicInfo {
         }
         
         
-        let episodes = episodesContainer.values.array.sorted { (a, b) -> Bool in
+        let episodes = Array(episodesContainer.values).sort { (a, b) -> Bool in
             return a.episodeNumber > b.episodeNumber
         }
         
@@ -98,7 +98,7 @@ class Anime: BasicInfo {
         let components = title.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "[]_() "))
         var numbers = [Int]()
         for component in components {
-            if let number = component.toInt() {
+            if let number = Int(component) {
                 if number < 10000 {
                     numbers.append(number)
                 }
@@ -109,12 +109,12 @@ class Anime: BasicInfo {
 }
 
 extension Anime: ContainsEpisodes {
-    func episodeFor(#seasonIndex: Int, episodeIndex: Int) -> Episode {
+    func episodeFor(seasonIndex seasonIndex: Int, episodeIndex: Int) -> Episode {
         let episode = seasons[seasonIndex].episodes[episodeIndex]
         return episode
     }
     
-    func episodesFor(#seasonIndex: Int) -> [Episode] {
+    func episodesFor(seasonIndex seasonIndex: Int) -> [Episode] {
         return seasons[seasonIndex].episodes
     }
 }

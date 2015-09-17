@@ -113,7 +113,6 @@ class BaseCollectionViewController: BarHidingViewController, UICollectionViewDel
                 let adjustedWidth = adjustedHeight * CGFloat(Constants.desirediPadCellWidth) / CGFloat(Constants.desirediPadCellHeight)
                 
                 return CGSizeMake(adjustedWidth, adjustedHeight)
-            default: return CGSizeMake(50, 50)
             }
         }
         

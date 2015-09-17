@@ -55,7 +55,6 @@ class ShowDetailsViewController: BaseDetailsViewController {
     
     override func cellWasPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
         let episode = show.episodeFor(seasonIndex: seasonIndex, episodeIndex: episodeIndex)
-        let videos = episode.videos
         showVideoPickerPopupForEpisode(episode, basicInfo: self.item, fromView: cell)
     }
     

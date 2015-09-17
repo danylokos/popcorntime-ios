@@ -29,9 +29,9 @@ class Image: NSObject, NSCoding {
     
     // MARK: - NSCoding
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         URL = aDecoder.decodeObjectForKey("URL") as! NSURL
-        var typeRaw = aDecoder.decodeObjectForKey("type") as! Int
+        let typeRaw = aDecoder.decodeObjectForKey("type") as! Int
         type = ImageType(rawValue: typeRaw)!
     }
     

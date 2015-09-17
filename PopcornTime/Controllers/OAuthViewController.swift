@@ -33,7 +33,7 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let code = request.URL?.lastPathComponent {
-            if count(code) == 64 {
+            if code.characters.count == 64 {
 //                PTAPIManager.sharedManager().accessTokenWithAuthorizationCode(code, success: { (accessToken) -> Void in
 //                    println("OAuth access token: \(accessToken)")
 //                    self.delegate?.oauthViewControllerDidFinish(self, token: accessToken, error: nil)
@@ -54,7 +54,7 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
 
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         delegate?.oauthViewControllerDidFinish(self, token: nil, error: error)
     }
     

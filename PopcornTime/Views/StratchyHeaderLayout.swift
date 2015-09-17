@@ -60,7 +60,7 @@ class StratchyHeaderLayout: UICollectionViewFlowLayout, StratchyHeaderDelegate {
         return true
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
         let insets = collectionView!.contentInset
         let offset = collectionView!.contentOffset

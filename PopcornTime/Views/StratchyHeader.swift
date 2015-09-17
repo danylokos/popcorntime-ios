@@ -37,7 +37,7 @@ class StratchyHeader: UICollectionReusableView {
     }
     
     // MARK: - UICollectionReusableView
-    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes!) {
+    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
         super.applyLayoutAttributes(layoutAttributes)
         
         let attributes = layoutAttributes as! StratchyLayoutAttributes
@@ -87,7 +87,7 @@ class StratchyHeader: UICollectionReusableView {
     
     private func updateImageViewConstraints() {
         
-        let dX = fabs(headerSize.height - imageViewActualHeight)/2
+//        let dX = fabs(headerSize.height - imageViewActualHeight)/2
         let dY = fabs(headerSize.width - imageViewActualWidth)/2
         maxStratch = dY//max(dX, dY)
         self.delegate?.stratchyHeader(self, didResetMaxStratchValue: maxStratch)

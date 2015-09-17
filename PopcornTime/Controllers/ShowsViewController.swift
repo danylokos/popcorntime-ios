@@ -24,7 +24,7 @@ class ShowsViewController: PagedViewController {
         
         if let cell = collectionView.cellForItemAtIndexPath(indexPath){
             //Check if cell is MoreShowsCell
-            if let moreCell = cell as? MoreShowsCollectionViewCell {
+            if let _ = cell as? MoreShowsCollectionViewCell {
                 loadMore()
             } else {
                 performSegueWithIdentifier("showDetails", sender: cell)

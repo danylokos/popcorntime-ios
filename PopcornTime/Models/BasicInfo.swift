@@ -9,8 +9,8 @@
 import Foundation
 
 protocol ContainsEpisodes {
-    func episodeFor(#seasonIndex: Int, episodeIndex: Int) -> Episode
-    func episodesFor(#seasonIndex: Int) -> [Episode]
+    func episodeFor(seasonIndex seasonIndex: Int, episodeIndex: Int) -> Episode
+    func episodesFor(seasonIndex seasonIndex: Int) -> [Episode]
 }
 
 protocol BasicInfoProtocol {
@@ -58,7 +58,7 @@ class BasicInfo: NSObject, BasicInfoProtocol, NSCoding {
     
     // MARK: - NSCoding
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         identifier = aDecoder.decodeObjectForKey("identifier") as! String
         title = aDecoder.decodeObjectForKey("title") as? String
         year = aDecoder.decodeObjectForKey("year") as? String

@@ -13,12 +13,16 @@ struct Notifications {
 }
 
 class DataManager {
-    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as String
     let fileName = "Favorites.plist"
     var filePath: String {
         get {
-            return documentsDirectory.stringByAppendingPathComponent(fileName)
+            return fileURL.path!
         }
+    }
+    var fileURL: NSURL {
+        let url = NSURL(fileURLWithPath: documentsDirectory, isDirectory: true)
+        return url.URLByAppendingPathComponent(fileName)
     }
     var favorites: [BasicInfo]?
 
@@ -33,7 +37,7 @@ class DataManager {
 
     private func loadFavorites() -> [BasicInfo]? {
         if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-            var data = NSData(contentsOfFile:filePath)
+            let data = NSData(contentsOfFile:filePath)
             if let data = data {
                 self.favorites = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [BasicInfo]?
                 return self.favorites
@@ -43,7 +47,7 @@ class DataManager {
     }
     
     private func saveFavorites(items: [BasicInfo]) {
-        var data = NSKeyedArchiver.archivedDataWithRootObject(items)
+        let data = NSKeyedArchiver.archivedDataWithRootObject(items)
         data.writeToFile(filePath, atomically: true)
         self.favorites = items
     }
@@ -51,7 +55,7 @@ class DataManager {
     // MARK: -
     
     func isFavorite(item: BasicInfo) -> Bool {
-        var favoriteItem = self.favorites?.filter({ $0.identifier == item.identifier }).first
+        let favoriteItem = self.favorites?.filter({ $0.identifier == item.identifier }).first
         if favoriteItem != nil {
             return true
         }
@@ -70,11 +74,11 @@ class DataManager {
     }
     
     func removeFromFavorites(item: BasicInfo) {
-        var items = loadFavorites()
+        let items = loadFavorites()
             if var items = items {
-            var favoriteItem = items.filter({ $0.identifier == item.identifier }).first
+            let favoriteItem = items.filter({ $0.identifier == item.identifier }).first
             if let favoriteItem = favoriteItem {
-                var idx = find(items, favoriteItem)
+                let idx = items.indexOf(favoriteItem)
                 items.removeAtIndex(idx!)
                 saveFavorites(items)
 

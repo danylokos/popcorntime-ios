@@ -54,12 +54,12 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
         
         let searchBarContainer = UIView(frame: navigationController!.navigationBar.bounds)
         searchBarContainer.addSubview(searchBar)
-        searchBar.setTranslatesAutoresizingMaskIntoConstraints(false)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
         navigationItem.titleView = searchBarContainer
         
         let views = ["searchBar" : searchBar]
-        searchBarContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[searchBar]-0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
-        searchBarContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[searchBar]-0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
+        searchBarContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[searchBar]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+        searchBarContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[searchBar]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
     }
 
     // MARK:
@@ -84,7 +84,7 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
                 self.contentPage++
                 let newItems = self.map(items)
                 var counter = 0
-                var newShowsIndexPathes = newItems.map({ item in NSIndexPath(forRow: (self.items.count + counter++), inSection: 0) } )
+                let newShowsIndexPathes = newItems.map({ item in NSIndexPath(forRow: (self.items.count + counter++), inSection: 0) } )
                 self.items += newItems
                 
                 self.collectionView?.insertItemsAtIndexPaths(newShowsIndexPathes)
@@ -93,8 +93,8 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
     }
     
     func performSearch() {
-        var text = searchController!.searchBar.text
-        if count(text) > 0 {
+        let text = searchController!.searchBar.text
+        if text!.characters.count > 0 {
             PTAPIManager.sharedManager().searchForShowWithType(showType, name: text, success: { (items) -> Void in
                 self.showLoadMoreCell = false
                 if let items = items {
@@ -121,7 +121,7 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
             //Ordinary show cell
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifierShow, forIndexPath: indexPath) as! ShowCollectionViewCell
             
-            var item = searchResults[indexPath.row]
+            let item = searchResults[indexPath.row]
             cell.title = item.title
             
             if let image = item.smallImage?.image {

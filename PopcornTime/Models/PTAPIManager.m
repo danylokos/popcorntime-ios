@@ -105,14 +105,14 @@ static NSDictionary *YTSHTTPHeaders;
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
               
               void (^handleError)(NSError *) = ^(NSError *error) {
-                  if (error) { NSLog(@"%@", error); if (failure) { failure(error); } return; }
+                  if (error) { NSLog(@"%@", error); if (failure) { failure(error); } }
               };
               
-              handleError(error);
+              if (error) { handleError(error); return; }
               
               NSError *JSONError;
               id JSONObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
-              handleError(JSONError);
+              if (JSONError) { handleError(JSONError); return; }
               
               if (success) { success(JSONObject); };
           });
@@ -255,6 +255,8 @@ static NSDictionary *YTSHTTPHeaders;
 
 #pragma mark - Trakt.tv
 
+/*
+
 NSString *const PTAPIManagerTrakttvAccessTokenKey = @"TrakttvAccessToken";
 
 NSString *const PTAPIManagerTrakttvAPIEndPoint = @"http://api.trakt.tv";
@@ -307,7 +309,7 @@ NSString *const PTAPIManagerTrakttvRedirectURL = @"urn:ietf:wg:oauth:2.0:oob";
     }
 
     void (^handleError)(NSError *) = ^(NSError *error) {
-        if (error) { NSLog(@"%@", error); if (failure) { failure(error); } return; }
+        if (error) { NSLog(@"%@", error); if (failure) { failure(error); } }
     };
     
     // Configure body
@@ -319,11 +321,11 @@ NSString *const PTAPIManagerTrakttvRedirectURL = @"urn:ietf:wg:oauth:2.0:oob";
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
       ^(NSData *data, NSURLResponse *response, NSError *error) {
           dispatch_async(dispatch_get_main_queue(), ^{
-              handleError(error);
+              if (error) { handleError(error); return; }
               
               NSError *JSONError;
               id JSONObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
-              handleError(JSONError);
+              if (JSONError) { handleError(JSONError); return; }
               
               if (success) { success(JSONObject); }
           });
@@ -371,4 +373,6 @@ NSString *const PTAPIManagerTrakttvRedirectURL = @"urn:ietf:wg:oauth:2.0:oob";
     success:nil failure:failure];
 }
 
+ */
+ 
 @end

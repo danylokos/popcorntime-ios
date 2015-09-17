@@ -118,7 +118,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
       })
     }
     
-    func promptToMarkEpisodesWatched(#lastEpisodeToMarked: Episode, basicInfo: BasicInfo, allSeasonEpisodes: [Episode], popoverView: UIView) {
+    func promptToMarkEpisodesWatched(lastEpisodeToMarked lastEpisodeToMarked: Episode, basicInfo: BasicInfo, allSeasonEpisodes: [Episode], popoverView: UIView) {
         if (ParseManager.sharedInstance.user != nil) {
             let actionSheetController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
             
@@ -135,7 +135,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
             }
             actionSheetController.addAction(markAllEpisodesBeforeThis)
             
-            var popOver = actionSheetController.popoverPresentationController
+            let popOver = actionSheetController.popoverPresentationController
             popOver?.sourceView  = view
             popOver?.sourceRect = view.bounds
             popOver?.permittedArrowDirections = UIPopoverArrowDirection.Any
@@ -308,7 +308,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
                 actionSheetController.addAction(action)
             }
             
-            var popOver = actionSheetController.popoverPresentationController
+            let popOver = actionSheetController.popoverPresentationController
             popOver?.sourceView  = view
             popOver?.sourceRect = view.bounds
             popOver?.permittedArrowDirections = UIPopoverArrowDirection.Any

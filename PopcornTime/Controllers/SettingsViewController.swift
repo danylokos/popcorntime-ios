@@ -19,9 +19,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - 
     
     func appInfoString() -> String {
-        var displayName = NSBundle.mainBundle().infoDictionary?["CFBundleDisplayName"] as! String
-        var version = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as! String
-        var shortVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
+        let displayName = NSBundle.mainBundle().infoDictionary?["CFBundleDisplayName"] as! String
+        let version = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as! String
+        let shortVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
         return "\(displayName) \(shortVersion) (\(version))"
     }
     
@@ -36,8 +36,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var identifier = "SettingsCell"
-        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("SettingsCell") as! UITableViewCell?
+        let identifier = "SettingsCell"
+        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("SettingsCell") 
         if cell == nil {
             cell = UITableViewCell(style: .Default, reuseIdentifier: identifier)
         }
@@ -48,7 +48,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(tableView.bounds), height: 0.0))
+        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(tableView.bounds), height: 0.0))
         label.backgroundColor = UIColor.clearColor()
         label.font = UIFont.systemFontOfSize(14.0)
         label.text = appInfoString()

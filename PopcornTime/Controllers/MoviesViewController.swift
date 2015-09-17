@@ -17,7 +17,7 @@ class MoviesViewController: PagedViewController {
     }
 
     override func map(response: [AnyObject]) -> [BasicInfo] {
-        var items = response.map({ Movie(dictionary: $0 as! NSDictionary) }) as [BasicInfo]
+        let items = response.map({ Movie(dictionary: $0 as! NSDictionary) }) as [BasicInfo]
         return items
     }
 
@@ -25,7 +25,7 @@ class MoviesViewController: PagedViewController {
         
         if let cell = collectionView.cellForItemAtIndexPath(indexPath){
             //Check if cell is MoreShowsCell
-            if let moreCell = cell as? MoreShowsCollectionViewCell{
+            if let _ = cell as? MoreShowsCollectionViewCell{
                 loadMore()
             } else {
                 performSegueWithIdentifier("showDetails", sender: cell)

@@ -21,12 +21,12 @@ class Movie: BasicInfo {
         
         images = [Image]()
         if let cover = dictionary["medium_cover_image"] as? String {
-            var image = Image(URL: NSURL(string: cover)!, type: .Poster)
+            let image = Image(URL: NSURL(string: cover)!, type: .Poster)
             images.append(image)
         }
         
         if let cover = dictionary["background_image"] as? String {
-            var image = Image(URL: NSURL(string: cover)!, type: .Banner)
+            let image = Image(URL: NSURL(string: cover)!, type: .Banner)
             images.append(image)
         }
 
@@ -35,7 +35,7 @@ class Movie: BasicInfo {
     }
 
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
     }
     
     override func update(dictionary: NSDictionary) {
@@ -51,7 +51,7 @@ class Movie: BasicInfo {
                 let magnetLink = "magnet:?xt=urn:btih:\(hash)&tr=udp://open.demonii.com:1337&tr=udp://tracker.coppersurfer.tk:6969"
 //                let size = movieDict["size_bytes"] as! UInt
                 
-                var video = Video(name: title, quality: quality, size: 0, duration: 0, subGroup: nil, magnetLink: magnetLink)
+                let video = Video(name: title, quality: quality, size: 0, duration: 0, subGroup: nil, magnetLink: magnetLink)
                 videos.append(video)
             }
         }
