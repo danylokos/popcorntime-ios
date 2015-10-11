@@ -54,8 +54,6 @@
 		7F0420591ABDD7D700E27FA1 /* AnimeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0420571ABDD7D700E27FA1 /* AnimeDetailsViewController.swift */; };
 		7F04205A1ABDD7D700E27FA1 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0420581ABDD7D700E27FA1 /* MovieDetailsViewController.swift */; };
 		7F083C661AB36D84001C938B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F083C651AB36D84001C938B /* AppDelegate.swift */; };
-		7F095FD31ACEBD2500C10D98 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F095FD11ACEBD2500C10D98 /* Crashlytics.framework */; };
-		7F095FD41ACEBD2500C10D98 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F095FD21ACEBD2500C10D98 /* Fabric.framework */; };
 		7F095FDE1AD059F000C10D98 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F095FDD1AD059F000C10D98 /* SettingsViewController.swift */; };
 		7F4992A21A2491DF00D8D36E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F4992981A2491DF00D8D36E /* Images.xcassets */; };
 		7F5047C31AC2095200521FC4 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5047C21AC2095200521FC4 /* DataManager.swift */; };
@@ -91,7 +89,6 @@
 		0C90B9B51AE110D4000D4B10 /* SeasonHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonHeader.swift; sourceTree = "<group>"; };
 		0C90B9B61AE110D4000D4B10 /* SeasonHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeasonHeader.xib; sourceTree = "<group>"; };
 		0CC1A6751ABB55A6008F7A31 /* PagedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedViewController.swift; path = Controllers/PagedViewController.swift; sourceTree = "<group>"; };
-		3DA7053C03A06974FEE32809 /* libPods-PopcornTime.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PopcornTime.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4348D3011B38161800028043 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4348D3031B38162200028043 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		4348D3051B38162F00028043 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -127,8 +124,6 @@
 		7F0420571ABDD7D700E27FA1 /* AnimeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeDetailsViewController.swift; path = Controllers/AnimeDetailsViewController.swift; sourceTree = "<group>"; };
 		7F0420581ABDD7D700E27FA1 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieDetailsViewController.swift; path = Controllers/MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		7F083C651AB36D84001C938B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7F095FD11ACEBD2500C10D98 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Thirdparties/Crashlytics/Crashlytics.framework; sourceTree = "<group>"; };
-		7F095FD21ACEBD2500C10D98 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Thirdparties/Crashlytics/Fabric.framework; sourceTree = "<group>"; };
 		7F095FDD1AD059F000C10D98 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = Controllers/SettingsViewController.swift; sourceTree = "<group>"; };
 		7F4992981A2491DF00D8D36E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
 		7F5047C21AC2095200521FC4 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -172,9 +167,7 @@
 				4348D3041B38162200028043 /* CFNetwork.framework in Frameworks */,
 				4348D3021B38161800028043 /* AudioToolbox.framework in Frameworks */,
 				7FB0E6DE1A9CCC7E00DA2454 /* libbz2.dylib in Frameworks */,
-				7F095FD31ACEBD2500C10D98 /* Crashlytics.framework in Frameworks */,
 				7FB0E6DC1A9CCC6100DA2454 /* libiconv.dylib in Frameworks */,
-				7F095FD41ACEBD2500C10D98 /* Fabric.framework in Frameworks */,
 				7FCFC3A01A23351700B3B8C2 /* libstdc++.6.0.9.dylib in Frameworks */,
 				65ADB189759E25BAEE4DD696 /* libPods-PopcornTime.a in Frameworks */,
 			);
@@ -331,12 +324,9 @@
 				4348D3051B38162F00028043 /* CoreGraphics.framework */,
 				4348D3031B38162200028043 /* CFNetwork.framework */,
 				4348D3011B38161800028043 /* AudioToolbox.framework */,
-				7F095FD11ACEBD2500C10D98 /* Crashlytics.framework */,
-				7F095FD21ACEBD2500C10D98 /* Fabric.framework */,
 				7FCFC3951A23341600B3B8C2 /* libstdc++.6.0.9.dylib */,
 				7FB0E6DD1A9CCC7E00DA2454 /* libbz2.dylib */,
 				7FB0E6DB1A9CCC6100DA2454 /* libiconv.dylib */,
-				3DA7053C03A06974FEE32809 /* libPods-PopcornTime.a */,
 				5E136A40A06A3FB238998C59 /* libPods-PopcornTime.a */,
 			);
 			name = Frameworks;
@@ -377,6 +367,7 @@
 				7F8824C51A227A0100E2710A /* Resources */,
 				814B281F6347C227DBD77ABF /* Copy Pods Resources */,
 				7742C4881B038132001B783E /* ShellScript */,
+				7BC4B191B7B88187B684FB7B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -454,7 +445,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Thirdparties/Crashlytics/Fabric.framework/run ${FABRIC_API_KEY} ${FABRIC_BUILD_SECRET} || true";
+			shellScript = "${PODS_ROOT}/Fabric/Fabric.framework/run ${FABRIC_API_KEY} ${FABRIC_BUILD_SECRET} || true";
+		};
+		7BC4B191B7B88187B684FB7B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		814B281F6347C227DBD77ABF /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

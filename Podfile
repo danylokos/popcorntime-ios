@@ -14,8 +14,13 @@ pod 'private-openssl'
 pod 'Reachability'
 pod 'CocoaSecurity'
 pod 'SDWebImage'
-pod 'ParseUI'
-pod 'ParseFacebookUtilsV4'
+
 pod 'FBSDKCoreKit'
+pod 'FBSDKLoginKit'
+pod 'ParseFacebookUtilsV4'
+pod 'ParseUI'
+
+pod 'Crashlytics'
+pod 'Fabric'
 
 end
