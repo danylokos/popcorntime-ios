@@ -445,7 +445,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/Fabric/Fabric.framework/run ${FABRIC_API_KEY} ${FABRIC_BUILD_SECRET} || true";
+			shellScript = "if [ -n \"$FABRIC_API_KEY\" ] && [ -n \"$FABRIC_BUILD_SECRET\" ]; then\n    ${PODS_ROOT}/Fabric/Fabric.framework/run ${FABRIC_API_KEY} ${FABRIC_BUILD_SECRET} || true\nelse\n    echo \"FABRIC_API_KEY and/or FABRIC_BUILD_SECRET are not set\"\nfi";
 		};
 		7BC4B191B7B88187B684FB7B /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
