@@ -14,24 +14,25 @@ class Movie: BasicInfo {
     required init(dictionary: NSDictionary) {
         super.init(dictionary: dictionary)
 
-        let id = dictionary["id"] as! Int
+        let id = (dictionary["id"] as! NSString).intValue
         identifier = "\(id)"
         title = dictionary["title"] as? String
-        year = dictionary["year"] as? String
+        year = String(dictionary["year"])
         
         images = [Image]()
-        if let cover = dictionary["medium_cover_image"] as? String {
+        if let cover = dictionary["poster_med"] as? String {
             let image = Image(URL: NSURL(string: cover)!, type: .Poster)
             images.append(image)
         }
         
-        if let cover = dictionary["background_image"] as? String {
+        if let cover = dictionary["poster_big"] as? String {
             let image = Image(URL: NSURL(string: cover)!, type: .Banner)
             images.append(image)
         }
 
         smallImage = self.images.filter({$0.type == ImageType.Poster}).first
         bigImage = self.images.filter({$0.type == ImageType.Banner}).first
+        synopsis = dictionary["description"] as? String
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -44,14 +45,16 @@ class Movie: BasicInfo {
         let title = dictionary["title"] as! String
 //        let runtime = dictionary["runtime"] as! UInt
         
-        if let movieList = dictionary["torrents"] as? NSArray {
+        if let movieList = dictionary["items"] as? NSArray {
             for movieDict in movieList {
                 let quality = movieDict["quality"] as! String
-                let hash = movieDict["hash"] as! String
-                let magnetLink = "magnet:?xt=urn:btih:\(hash)&tr=udp://open.demonii.com:1337&tr=udp://tracker.coppersurfer.tk:6969"
-//                let size = movieDict["size_bytes"] as! UInt
+                //let hash = movieDict["hash"] as! String
+                let magnetLink = movieDict["torrent_magnet"] as! String
+/*                let magnetLink = "magnet:?xt=urn:btih:\(hash)&tr=udp://open.demonii.com:1337&tr=udp://tracker.coppersurfer.tk:6969"
+*/
+                let size = movieDict["size_bytes"] as! UInt
                 
-                let video = Video(name: title, quality: quality, size: 0, duration: 0, subGroup: nil, magnetLink: magnetLink)
+                let video = Video(name: title, quality: quality, size: size, duration: 0, subGroup: nil, magnetLink: magnetLink)
                 videos.append(video)
             }
         }

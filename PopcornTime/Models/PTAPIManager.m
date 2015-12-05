@@ -11,8 +11,8 @@
 #import <UIKit/UIKit.h>
 
 NSUInteger const PTAPIManagerResultsLimit = 30;
-NSString *const PTAPIManagerMoviesEndPoint = @"http://cloudflare.com/api/v2";
-NSString *const PTAPIManagerShowsEndPoint = @"http://eztvapi.re";
+NSString *const PTAPIManagerMoviesEndPoint = @"http://api.torrentsapi.com/";
+NSString *const PTAPIManagerShowsEndPoint = @"https://mi2i2dospijuauxa.onion.to/";
 NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
 
 @implementation PTAPIManager
@@ -20,6 +20,7 @@ NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
 static NSDictionary *YTSHTTPHeaders;
 
 #pragma mark - Public API
+
 
 + (void)initialize
 {
@@ -125,14 +126,15 @@ static NSDictionary *YTSHTTPHeaders;
                   success:(PTAPIManagerSuccessItems)success
                   failure:(PTAPIManagerFailure)failure
 {
-    NSString *path = [NSString stringWithFormat:@"list_movies.json?"
-                      "page=%ld&limit=%ld&order_by=desc&sort_by=seeds", (long)page + 1, (long)PTAPIManagerResultsLimit];
-    
+    NSString *path = [NSString stringWithFormat:@"list?"
+                      "page=%ld&limit=%ld&order_by=desc&sort_by=seeds&with_rt_ratings=true", (long)page + 1, (long)PTAPIManagerResultsLimit];
+   
     NSString *URLString = [PTAPIManagerMoviesEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString] HTTPheaders:YTSHTTPHeaders success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {
-            NSArray *items = [[((NSDictionary *)JSONObject) objectForKey:@"data"] objectForKey:@"movies"];
+            NSArray *items = [((NSDictionary *)JSONObject) objectForKey:@"MovieList"];
             success(items);
+            
         }
     } failure:failure];
 }
@@ -140,12 +142,22 @@ static NSDictionary *YTSHTTPHeaders;
                 success:(PTAPIManagerSuccessItem)success
                 failure:(PTAPIManagerFailure)failure
 {
-    NSString *path = [NSString stringWithFormat:@"movie_details.json?movie_id=%@", imdbId];
+    NSString *path = [NSString stringWithFormat:@"list?"
+                      "page=1&limit=5&order_by=desc&sort_by=seeds&with_rt_ratings=true"];
+
+//    NSString *path = [NSString stringWithFormat:@"list?id=%@", imdbId];
     NSString *URLString = [PTAPIManagerMoviesEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString] HTTPheaders:YTSHTTPHeaders success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {
-            NSDictionary *item = [((NSDictionary *)JSONObject) objectForKey:@"data"];
-            success(item);
+            NSDictionary *items = [((NSDictionary *)JSONObject) objectForKey:@"MovieList"];
+            for(id key in items) {
+                NSString *id = [key objectForKey:@"id"];
+                if([id isEqualToString:imdbId]) {
+                    success(key);
+                    break;
+                }
+            }
+//            success(items);
         }
     } failure:failure];
 }
@@ -154,12 +166,12 @@ static NSDictionary *YTSHTTPHeaders;
                        success:(PTAPIManagerSuccessItems)success
                        failure:(PTAPIManagerFailure)failure
 {
-    NSString *path = [[NSString stringWithFormat:@"list_movies.json?limit=%ld&query_term=%@", (long)PTAPIManagerResultsLimit, name]
+    NSString *path = [[NSString stringWithFormat:@"list?sort_by=seeds&limit=%ld&with_rt_ratings=true&page=1&keywords=%@", (long)PTAPIManagerResultsLimit, name]
                       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *URLString = [PTAPIManagerMoviesEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString] HTTPheaders:YTSHTTPHeaders success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {
-            NSArray *items = [[((NSDictionary *)JSONObject) objectForKey:@"data"] objectForKey:@"movies"];
+            NSArray *items = [((NSDictionary *)JSONObject) objectForKey:@"MovieList"];
             success(items);
         }
     } failure:failure];
