@@ -20,15 +20,6 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb459546117547491</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>Fabric</key>
@@ -45,17 +36,6 @@
 			</dict>
 		</array>
 	</dict>
-	<key>FacebookAppID</key>
-	<string>459546117547491</string>
-	<key>FacebookDisplayName</key>
-	<string>PocornTime iOS</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

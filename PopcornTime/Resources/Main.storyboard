@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A178w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dfX-fY-8T0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dfX-fY-8T0">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Colorfull Tab Bar Controller-->
@@ -15,7 +14,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="FiG-nQ-Gwx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
@@ -43,7 +41,6 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="N8O-87-354">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RCM-ag-Wek">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -53,7 +50,6 @@
                                 <cells/>
                             </collectionView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="N8O-87-354" firstAttribute="top" secondItem="yYN-t5-Uth" secondAttribute="topMargin" id="Cxr-Mw-YDd"/>
@@ -93,7 +89,6 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="J0Q-3v-mYi">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xZ1-3i-1vR">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -103,7 +98,6 @@
                                 <cells/>
                             </collectionView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="J0Q-3v-mYi" firstAttribute="leading" secondItem="IDd-dj-rlb" secondAttribute="leading" id="99C-v0-KHb"/>
@@ -132,12 +126,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wed-jV-2Ok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="RxB-Ov-N2l">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kC7-OM-puy">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ozd-IJ-kA9" customClass="StratchyHeaderLayout" customModule="PopcornTime" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -146,21 +139,18 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EpisodeCell" id="X2h-M0-N3e">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="5" y="79" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <animations/>
                                         <color key="backgroundColor" red="1" green="0.60942627989999998" blue="0.53172264930000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kC7-OM-puy" firstAttribute="top" secondItem="QRb-xd-WiJ" secondAttribute="bottom" id="7Pu-By-DOS"/>
@@ -192,7 +182,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="9UF-I7-giv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -212,7 +201,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="jM2-Oi-TbS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -246,39 +234,33 @@
                                             <subviews>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iQF-mn-H34">
                                                     <rect key="frame" x="20" y="85" width="220" height="2"/>
-                                                    <animations/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="99%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dyu-uI-e3s" userLabel="Progress Label">
                                                     <rect key="frame" x="55" y="95" width="150" height="21"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Speed: 1.5 MB/s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtX-Eh-3Ck" userLabel="Speed Label">
                                                     <rect key="frame" x="55" y="124" width="150" height="21"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Seeds: 20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odl-qX-n2O" userLabel="Seeds Label">
                                                     <rect key="frame" x="55" y="153" width="150" height="21"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Peers: 20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HhI-Ni-8J8" userLabel="Peers Label">
                                                     <rect key="frame" x="55" y="182" width="150" height="21"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OyV-xC-3a4" userLabel="Cancel Button">
                                                     <rect key="frame" x="95" y="226" width="70" height="30"/>
-                                                    <animations/>
                                                     <state key="normal" title="Cancel">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -288,13 +270,11 @@
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Downloading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bR-E2-MXi" userLabel="Status Label">
                                                     <rect key="frame" x="70" y="48" width="120" height="21"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="280" id="Abb-WO-CaK"/>
@@ -303,13 +283,11 @@
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie name - resolution" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFA-o4-k8D" userLabel="Title Label">
                                             <rect key="frame" x="208" y="35" width="185" height="21"/>
-                                            <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <animations/>
                                     <constraints>
                                         <constraint firstItem="BFA-o4-k8D" firstAttribute="top" secondItem="Bbw-Ra-hAv" secondAttribute="top" constant="35" id="8GK-gX-IRy"/>
                                         <constraint firstAttribute="centerX" secondItem="BFA-o4-k8D" secondAttribute="centerX" id="HQY-9H-dme"/>
@@ -319,11 +297,9 @@
                                         <constraint firstAttribute="centerX" secondItem="Eno-Np-eyT" secondAttribute="centerX" id="fb1-QL-1Gt"/>
                                     </constraints>
                                 </view>
-                                <animations/>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3jf-HN-lVz" firstAttribute="leading" secondItem="Ge5-4i-c4F" secondAttribute="leadingMargin" id="49U-xF-EQh"/>
@@ -372,7 +348,6 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="un7-QQ-yb5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dLT-p7-0kC">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -382,7 +357,6 @@
                                 <cells/>
                             </collectionView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="un7-QQ-yb5" secondAttribute="trailing" id="LMg-Wo-DNY"/>
@@ -417,7 +391,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="jlQ-Ip-DcT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -437,12 +410,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Gxb-eF-kn7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fSO-ml-ygC">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cix-TO-yDb">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QOJ-dh-oMS" customClass="StratchyHeaderLayout" customModule="PopcornTime" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -451,21 +423,18 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EpisodeCell" id="WYM-12-06H">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="5" y="79" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <animations/>
                                         <color key="backgroundColor" red="1" green="0.60942627989999998" blue="0.53172264930000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Cix-TO-yDb" secondAttribute="trailing" id="1Ke-bE-sbv"/>
@@ -491,12 +460,11 @@
                         <viewControllerLayoutGuide type="bottom" id="3zw-Wx-sxv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ybe-E9-ZTf">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FOJ-U6-lFA">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dvR-y0-Sip" customClass="StratchyHeaderLayout" customModule="PopcornTime" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -505,21 +473,18 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EpisodeCell" id="8rK-gB-HyN">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="5" y="79" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <animations/>
                                         <color key="backgroundColor" red="1" green="0.60942627989999998" blue="0.53172264930000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FOJ-U6-lFA" firstAttribute="top" secondItem="Cp9-yw-pA3" secondAttribute="bottom" id="Imy-I5-tBP"/>
@@ -542,69 +507,6 @@
             </objects>
             <point key="canvasLocation" x="2650" y="1127"/>
         </scene>
-        <!--Parse View Controller-->
-        <scene sceneID="B2s-n4-LmH">
-            <objects>
-                <viewController id="Hrk-gY-Ypf" customClass="ParseViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Dje-zC-Ink"/>
-                        <viewControllerLayoutGuide type="bottom" id="7LA-Ma-6kY"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="uNZ-bT-7CZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are logged in to Parse. It will aoutomatically sync your watching progress through all your devices." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9r-By-SGb">
-                                <rect key="frame" x="150.5" y="150" width="300" height="300.5"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="r9r-By-SGb" secondAttribute="height" multiplier="1:1" id="bg2-Qt-adb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="MW3-ef-bG6">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <animations/>
-                                <items>
-                                    <barButtonItem title="Log out" id="UvF-aD-kwq">
-                                        <connections>
-                                            <action selector="logOutPressed:" destination="Hrk-gY-Ypf" id="sB9-Df-Okw"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DjU-9B-DTO"/>
-                                    <barButtonItem enabled="NO" title="Clear all data" id="xbc-zv-1jp">
-                                        <connections>
-                                            <action selector="clearAllDataPressed:" destination="Hrk-gY-Ypf" id="cGu-73-P1g"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="MW3-ef-bG6" secondAttribute="trailing" id="2At-ob-tbr"/>
-                            <constraint firstItem="7LA-Ma-6kY" firstAttribute="top" secondItem="MW3-ef-bG6" secondAttribute="bottom" id="9ch-rP-vhj"/>
-                            <constraint firstAttribute="centerX" secondItem="r9r-By-SGb" secondAttribute="centerX" id="AXQ-qC-5Ks"/>
-                            <constraint firstAttribute="centerY" secondItem="r9r-By-SGb" secondAttribute="centerY" id="DW6-1n-2kc"/>
-                            <constraint firstItem="MW3-ef-bG6" firstAttribute="leading" secondItem="uNZ-bT-7CZ" secondAttribute="leading" id="LOh-xa-mcs"/>
-                            <constraint firstAttribute="width" secondItem="r9r-By-SGb" secondAttribute="width" multiplier="2" id="mKi-vO-kz6"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="u6R-4c-QDq">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="9yx-ng-vuW">
-                            <connections>
-                                <action selector="dissmiss:" destination="Hrk-gY-Ypf" id="EMs-SX-I68"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nOX-vW-ZG2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2642" y="-3023"/>
-        </scene>
         <!--Settings-->
         <scene sceneID="bem-lN-RrM">
             <objects>
@@ -619,7 +521,6 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="09A-zd-jWh">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
-                                <animations/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="PsM-1R-DZR" id="LkZ-4H-AMh"/>
@@ -627,7 +528,6 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="09A-zd-jWh" firstAttribute="bottom" secondItem="EN2-Q0-mCJ" secondAttribute="top" id="98Q-Ut-SCA"/>
@@ -641,11 +541,6 @@
                         <barButtonItem key="leftBarButtonItem" title="Done" id="9er-hO-ljh">
                             <connections>
                                 <action selector="doneButtonTapped:" destination="PsM-1R-DZR" id="hyK-bZ-4Cs"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Sync" id="9io-04-mcn">
-                            <connections>
-                                <segue destination="Hrk-gY-Ypf" kind="show" id="lKP-Lc-zIe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -664,7 +559,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="vNU-OG-5CV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -689,7 +583,6 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eI5-vY-Geb">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wc9-WL-RHv">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -699,7 +592,6 @@
                                 <cells/>
                             </collectionView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="eI5-vY-Geb" firstAttribute="leading" secondItem="M3M-4W-n7v" secondAttribute="leading" id="Gcb-tq-ZVc"/>
@@ -735,7 +627,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="mhs-Pw-TcL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

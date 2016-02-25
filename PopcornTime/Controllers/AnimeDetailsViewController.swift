@@ -43,9 +43,6 @@ class AnimeDetailsViewController: BaseDetailsViewController {
     override func setupCell(cell: EpisodeCell, seasonIndex: Int, episodeIndex: Int) {
         let episode = anime.seasons[seasonIndex].episodes[episodeIndex]
         cell.titleLabel.text = "\(episode.episodeNumber)"
-        if let parseData = parseData {
-            cell.watchedEpisode = parseData.isEpisodeWatched(Int(episode.seasonNumber), episode: Int(episode.episodeNumber))
-        }
     }
     
     override func setupSeasonHeader(header: SeasonHeader, seasonIndex: Int) {
@@ -58,9 +55,7 @@ class AnimeDetailsViewController: BaseDetailsViewController {
     }
     
     override func cellWasLongPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
-        let episode = anime.episodeFor(seasonIndex: seasonIndex, episodeIndex: episodeIndex)
-        let seasonEpisodes = anime.episodesFor(seasonIndex: seasonIndex)
-        
-        promptToMarkEpisodesWatched(lastEpisodeToMarked: episode, basicInfo: anime, allSeasonEpisodes: seasonEpisodes, popoverView: cell)
+//        let episode = anime.episodeFor(seasonIndex: seasonIndex, episodeIndex: episodeIndex)
+//        let seasonEpisodes = anime.episodesFor(seasonIndex: seasonIndex)
     }
 }

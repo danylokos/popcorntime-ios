@@ -43,9 +43,6 @@ class ShowDetailsViewController: BaseDetailsViewController {
         } else {
             cell.titleLabel.text = "S\(episode.seasonNumber)E\(episode.episodeNumber)"
         }
-        if let parseData = parseData {
-            cell.watchedEpisode = parseData.isEpisodeWatched(Int(episode.seasonNumber), episode: Int(episode.episodeNumber))
-        }
     }
     
     override func setupSeasonHeader(header: SeasonHeader, seasonIndex: Int) {
@@ -59,9 +56,7 @@ class ShowDetailsViewController: BaseDetailsViewController {
     }
     
     override func cellWasLongPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
-        let episode = show.episodeFor(seasonIndex: seasonIndex, episodeIndex: episodeIndex)
-        let seasonEpisodes = show.episodesFor(seasonIndex: seasonIndex)
-        
-        promptToMarkEpisodesWatched(lastEpisodeToMarked: episode, basicInfo: show, allSeasonEpisodes: seasonEpisodes, popoverView: cell)
+//        let episode = show.episodeFor(seasonIndex: seasonIndex, episodeIndex: episodeIndex)
+//        let seasonEpisodes = show.episodesFor(seasonIndex: seasonIndex)
     }
 }

@@ -15,11 +15,6 @@ pod 'Reachability'
 pod 'CocoaSecurity'
 pod 'SDWebImage'
 
-pod 'FBSDKCoreKit'
-pod 'FBSDKLoginKit'
-pod 'ParseFacebookUtilsV4'
-pod 'ParseUI'
-
 pod 'Crashlytics'
 pod 'Fabric'
 

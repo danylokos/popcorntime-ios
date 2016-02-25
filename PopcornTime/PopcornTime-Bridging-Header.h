@@ -8,9 +8,3 @@
 #import <CocoaSecurity/CocoaSecurity.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/SDWebImageDownloader.h>
-
-#import <ParseUI/ParseUI.h>
-#import <Parse/Parse.h>
-#import <Bolts/Bolts.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <ParseFacebookUtilsV4/PFFacebookUtils.h>

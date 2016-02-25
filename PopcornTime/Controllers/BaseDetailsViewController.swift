@@ -42,14 +42,9 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
     let episodeCellReuseIdentifier = "EpisodeCell"
     
     var layout: StratchyHeaderLayout?
-  
-    // Harmless object, calling it's methods when not connected to Parse does nothing / returns default values
-    var parseData: ParseShowData?
-  
-  
+
     var item: BasicInfo! {
         didSet {
-            reloadShowInfoFromParse()
             navigationItem.title = item.title
             reloadData()
         }
@@ -109,42 +104,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
         header?.headerSize = headerSize
         layout?.headerSize = headerSize
     }
-  
-    // MARK: - Parse
-    func reloadShowInfoFromParse() {
-      ParseManager.sharedInstance.parseEpisodesData(item, handler: { (parseShowData) -> Void in
-        self.parseData = parseShowData
-        self.reloadData()
-      })
-    }
-    
-    func promptToMarkEpisodesWatched(lastEpisodeToMarked lastEpisodeToMarked: Episode, basicInfo: BasicInfo, allSeasonEpisodes: [Episode], popoverView: UIView) {
-        if (ParseManager.sharedInstance.user != nil) {
-            let actionSheetController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            actionSheetController.addAction(cancelAction)
-            
-            let markAllEpisodesBeforeThis = UIAlertAction(title: "Mark watched episodes before this one", style: .Destructive) { (action) -> Void in
-                let episodesBefore = allSeasonEpisodes.filter(){ episodeToCompere in
-                    return (episodeToCompere.episodeNumber) <= lastEpisodeToMarked.episodeNumber
-                }
-                ParseManager.sharedInstance.markEpisodes(episodesBefore, basicInfo: basicInfo, completionHandler: { (success, error) -> Void in
-                    self.reloadShowInfoFromParse()
-                })
-            }
-            actionSheetController.addAction(markAllEpisodesBeforeThis)
-            
-            let popOver = actionSheetController.popoverPresentationController
-            popOver?.sourceView  = view
-            popOver?.sourceRect = view.bounds
-            popOver?.permittedArrowDirections = UIPopoverArrowDirection.Any
-            
-            self.presentViewController(actionSheetController, animated: true, completion: nil)
-        }
-    }
-  
-  
+
     // MARK: - Favorites
     func addToFavorites() {
         DataManager.sharedManager().addToFavorites(item)
@@ -162,11 +122,7 @@ class BaseDetailsViewController: BarHidingViewController, VDLPlaybackViewControl
     }
     
     func startPlayback(episode: Episode, basicInfo: BasicInfo, magnetLink: String, loadingTitle: String) {
-      
-        // Mark on Parse
-        ParseManager.sharedInstance.markEpisode(episode, basicInfo: basicInfo)
-        reloadShowInfoFromParse()
-      
+            
         let loadingVC = self.storyboard?.instantiateViewControllerWithIdentifier("loadingViewController") as! LoadingViewController
         loadingVC.delegate = self
         loadingVC.status = "Downloading..."
