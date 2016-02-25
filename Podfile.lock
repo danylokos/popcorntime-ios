@@ -1,44 +1,37 @@
 PODS:
-  - Bolts (1.3.0):
-    - Bolts/AppLinks (= 1.3.0)
-    - Bolts/Tasks (= 1.3.0)
-  - Bolts/AppLinks (1.3.0):
+  - Bolts (1.6.0):
+    - Bolts/AppLinks (= 1.6.0)
+    - Bolts/Tasks (= 1.6.0)
+  - Bolts/AppLinks (1.6.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.3.0)
+  - Bolts/Tasks (1.6.0)
   - CocoaSecurity (1.2.4)
-  - Crashlytics (3.3.4)
-  - Fabric (1.5.5):
-    - Fabric/Base (= 1.5.5)
-  - Fabric/Base (1.5.5)
-  - FBSDKCoreKit (4.7.0):
-    - Bolts (~> 1.1)
-    - FBSDKCoreKit/arc (= 4.7.0)
-    - FBSDKCoreKit/no-arc (= 4.7.0)
-  - FBSDKCoreKit/arc (4.7.0):
-    - Bolts (~> 1.1)
-  - FBSDKCoreKit/no-arc (4.7.0):
-    - Bolts (~> 1.1)
-    - FBSDKCoreKit/arc
-  - FBSDKLoginKit (4.7.0):
+  - Crashlytics (3.7.0):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.6)
+  - FBSDKCoreKit (4.10.0):
+    - Bolts (~> 1.5)
+  - FBSDKLoginKit (4.10.0):
     - FBSDKCoreKit
-  - Parse (1.9.0):
-    - Bolts/Tasks (>= 1.3.0)
-  - ParseFacebookUtilsV4 (1.9.0):
-    - Bolts/Tasks (>= 1.3.0)
-    - FBSDKCoreKit (~> 4.7)
-    - FBSDKLoginKit (~> 4.7)
+  - Parse (1.12.0):
+    - Bolts/Tasks (~> 1.5)
+  - ParseFacebookUtilsV4 (1.11.1):
+    - Bolts/Tasks (>= 1.6)
+    - FBSDKCoreKit (~> 4.10)
+    - FBSDKLoginKit (~> 4.10)
+    - FBSDKTVOSKit (~> 4.10)
+    - Parse (~> 1.12)
+  - ParseUI (1.2.0):
+    - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
-  - ParseUI (1.1.6):
-    - Bolts/Tasks (~> 1.2)
-    - Parse (~> 1.8)
   - private-boost (1.58.0)
   - private-libtorrent (1.0.6)
   - private-MobileVLCKit (2.5.150604)
   - private-openssl (1.0.204)
   - Reachability (3.2)
-  - SDWebImage (3.7.3):
-    - SDWebImage/Core (= 3.7.3)
-  - SDWebImage/Core (3.7.3)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
 
 DEPENDENCIES:
   - CocoaSecurity
@@ -56,20 +49,20 @@ DEPENDENCIES:
   - SDWebImage
 
 SPEC CHECKSUMS:
-  Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
   CocoaSecurity: d288a6f87e0f363823d2cb83e753814a6944f71a
-  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
-  Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
-  FBSDKCoreKit: eb580bfc2040ad44f4c0b4f4d0befb1d35bce59c
-  FBSDKLoginKit: 01bce8dd3f3a26a023b0ba4ffdde7ef5062889fe
-  Parse: 712efbc476d4f47b0f96b70db7e53101575753aa
-  ParseFacebookUtilsV4: aadebfaaaf4a45bf0a0992863bf48c8fc49189e3
-  ParseUI: 8a22e448c03f825203d8c379c80523517f68baa3
+  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Fabric: 1abc1e59f11fa39ede6f690ef7309d8563e3ec59
+  FBSDKCoreKit: 13bec8373fb3af94d44daf2aa1e0958687897fbd
+  FBSDKLoginKit: d3d4a2e9d31954deb00bfea964167a05ca1ea976
+  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
+  ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   private-boost: 390bdadecb82f24bcec47068f4b041acc757d575
   private-libtorrent: 9f0d4c5e1b3842e3baf5493b66cadb684bb07afd
   private-MobileVLCKit: 9f36464901370c0dd54e2fa2fe34b44effc18cb3
   private-openssl: b469f3f9eca633bcc9e888c1f1d4fc27b7ea7c17
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
 
 COCOAPODS: 0.39.0

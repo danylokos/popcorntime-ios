@@ -40,6 +40,7 @@
 		773399A41AF7E43A008DF31A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773399A31AF7E43A008DF31A /* Launch Screen.xib */; };
 		773399A61AF7E4C8008DF31A /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773399A51AF7E4C8008DF31A /* FavoritesViewController.swift */; };
 		773399A81AF7E4E8008DF31A /* ColorfullTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773399A71AF7E4E8008DF31A /* ColorfullTabBarController.swift */; };
+		77F3FE931C7F3F6800E18D42 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F3FE921C7F3F6800E18D42 /* AVFoundation.framework */; };
 		7F01A53E1ABD953900D2B923 /* Anime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F01A53A1ABD953900D2B923 /* Anime.swift */; };
 		7F01A53F1ABD953900D2B923 /* BasicInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F01A53B1ABD953900D2B923 /* BasicInfo.swift */; };
 		7F01A5401ABD953900D2B923 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F01A53C1ABD953900D2B923 /* Movie.swift */; };
@@ -110,6 +111,7 @@
 		773399A31AF7E43A008DF31A /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "PopcornTime/Resources/Launch Screen.xib"; sourceTree = SOURCE_ROOT; };
 		773399A51AF7E4C8008DF31A /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritesViewController.swift; path = Controllers/FavoritesViewController.swift; sourceTree = "<group>"; };
 		773399A71AF7E4E8008DF31A /* ColorfullTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorfullTabBarController.swift; path = Controllers/ColorfullTabBarController.swift; sourceTree = "<group>"; };
+		77F3FE921C7F3F6800E18D42 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7F01A53A1ABD953900D2B923 /* Anime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Anime.swift; sourceTree = "<group>"; };
 		7F01A53B1ABD953900D2B923 /* BasicInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfo.swift; sourceTree = "<group>"; };
 		7F01A53C1ABD953900D2B923 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77F3FE931C7F3F6800E18D42 /* AVFoundation.framework in Frameworks */,
 				4348D31E1B3817DF00028043 /* Social.framework in Frameworks */,
 				4348D31D1B3817D800028043 /* Accounts.framework in Frameworks */,
 				4348D3181B38179100028043 /* libz.dylib in Frameworks */,
@@ -311,6 +314,7 @@
 		7FCFC2F01A227FA800B3B8C2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				77F3FE921C7F3F6800E18D42 /* AVFoundation.framework */,
 				4348D31B1B3817AB00028043 /* Social.framework */,
 				4348D3191B3817A400028043 /* Accounts.framework */,
 				4348D3171B38179100028043 /* libz.dylib */,
@@ -445,7 +449,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -n \"$FABRIC_API_KEY\" ] && [ -n \"$FABRIC_BUILD_SECRET\" ]; then\n    ${PODS_ROOT}/Fabric/Fabric.framework/run ${FABRIC_API_KEY} ${FABRIC_BUILD_SECRET} || true\nelse\n    echo \"FABRIC_API_KEY and/or FABRIC_BUILD_SECRET are not set\"\nfi";
+			shellScript = "if [ -n \"$FABRIC_API_KEY\" ] && [ -n \"$FABRIC_BUILD_SECRET\" ]; then\n    ${PODS_ROOT}/Fabric/run ${FABRIC_API_KEY} ${FABRIC_BUILD_SECRET} || true\nelse\n    echo \"FABRIC_API_KEY and/or FABRIC_BUILD_SECRET are not set\"\nfi";
 		};
 		7BC4B191B7B88187B684FB7B /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
