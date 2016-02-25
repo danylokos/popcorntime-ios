@@ -27,7 +27,7 @@ class AnimeDetailsViewController: BaseDetailsViewController {
     override func reloadData() {
         PTAPIManager.sharedManager().showInfoWithType(.Anime, withId: item.identifier, success: { (item) -> Void in
             self.anime.update(item)
-            self.collectionView.reloadData()
+            self.collectionView?.reloadData()
             }, failure: nil)
     }
     

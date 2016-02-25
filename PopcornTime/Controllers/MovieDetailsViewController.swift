@@ -28,7 +28,7 @@ class MovieDetailsViewController: BaseDetailsViewController {
     override func reloadData() {
         PTAPIManager.sharedManager().showInfoWithType(.Movie, withId: item.identifier, success: { (item) -> Void in
             self.movie.update(item)
-            self.collectionView.reloadData()
+            self.collectionView?.reloadData()
             }, failure: nil)
     }
     

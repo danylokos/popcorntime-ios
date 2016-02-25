@@ -123,14 +123,20 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
             
             let item = searchResults[indexPath.row]
             cell.title = item.title
-            
-            if let image = item.smallImage?.image {
-                cell.image = image
-            } else {
-                ImageProvider.sharedInstance.imageFromURL(URL: item.smallImage?.URL) { (downloadedImage) -> () in
-                    item.smallImage?.image = downloadedImage
+
+            let imageItem = item.smallImage
+            switch imageItem?.status {
+            case .New?:
+                imageItem?.status = .Downloading
+                ImageProvider.sharedInstance.imageFromURL(URL: imageItem?.URL) { (downloadedImage) -> () in
+                    imageItem?.image = downloadedImage
+                    imageItem?.status = .Finished
+                    
                     collectionView.reloadItemsAtIndexPaths([indexPath])
                 }
+            case .Finished?:
+                cell.image = imageItem?.image
+            default: break
             }
 
             return cell

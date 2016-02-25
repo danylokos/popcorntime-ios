@@ -22,7 +22,7 @@ class ShowDetailsViewController: BaseDetailsViewController {
         PTAPIManager.sharedManager().showInfoWithType(.Show, withId: show.identifier, success: { (item) -> Void in
             if let item = item {
                 self.show.update(item)
-                self.collectionView.reloadData()
+                self.collectionView?.reloadData()
             }
             }, failure: nil)
     }

@@ -60,22 +60,26 @@ class BaseCollectionViewController: BarHidingViewController, UICollectionViewDel
             //Last cell
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifierMore, forIndexPath: indexPath) as! MoreShowsCollectionViewCell
             return cell
-        }else{
+        } else {
             //Ordinary show cell
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifierShow, forIndexPath: indexPath) as! ShowCollectionViewCell
             
             let item = items[indexPath.row]
             cell.title = item.title
             
-            if let image = item.smallImage?.image {
-                cell.image = image
-            } else {
-                ImageProvider.sharedInstance.imageFromURL(URL: item.smallImage?.URL) { (downloadedImage) -> () in
-                    item.smallImage?.image = downloadedImage
-                    if let _ = collectionView.cellForItemAtIndexPath(indexPath) {
-                        collectionView.reloadItemsAtIndexPaths([indexPath])
-                    }
+            let imageItem = item.smallImage
+            switch imageItem?.status {
+            case .New?:
+                imageItem?.status = .Downloading
+                ImageProvider.sharedInstance.imageFromURL(URL: imageItem?.URL) { (downloadedImage) -> () in
+                    imageItem?.image = downloadedImage
+                    imageItem?.status = .Finished
+                    
+                    collectionView.reloadItemsAtIndexPaths([indexPath])
                 }
+            case .Finished?:
+                cell.image = imageItem?.image
+            default: break
             }
 
             return cell

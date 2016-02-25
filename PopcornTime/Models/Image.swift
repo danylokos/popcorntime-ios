@@ -12,15 +12,15 @@ enum ImageType: Int {
     case Banner, Poster, Fanart
 }
 
-//enum ImageStatus {
-//    case New, Downloading, Finished
-//}
+enum ImageStatus {
+    case New, Downloading, Finished
+}
 
 class Image: NSObject, NSCoding {
     let URL: NSURL
     var image: UIImage?
     let type: ImageType
-//    var status: ImageStatus = .New
+    var status: ImageStatus = .New
     
     init(URL: NSURL, type: ImageType) {
         self.URL = URL
