@@ -12,7 +12,7 @@
 
 NSUInteger const PTAPIManagerResultsLimit = 30;
 NSString *const PTAPIManagerMoviesEndPoint = @"http://api.torrentsapi.com/";
-NSString *const PTAPIManagerShowsEndPoint = @"https://mi2i2dospijuauxa.onion.to/";
+NSString *const PTAPIManagerShowsEndPoint = @"http://popcorntime.ws/api/eztv/";
 NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
 
 @implementation PTAPIManager
@@ -185,7 +185,7 @@ static NSDictionary *YTSHTTPHeaders;
 {
     NSString *path = [NSString stringWithFormat:@"shows/%ld?limit=%lu&order=desc&sort=seeds", (long)page + 1, (long)PTAPIManagerResultsLimit];
     NSString *URLString = [PTAPIManagerShowsEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString]success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {
             success((NSArray *)JSONObject);
         }
@@ -198,7 +198,7 @@ static NSDictionary *YTSHTTPHeaders;
 {
     NSString *path = [NSString stringWithFormat:@"show/%@", imdbId];
     NSString *URLString = [PTAPIManagerShowsEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString]success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {
             success((NSDictionary *)JSONObject);
         }
@@ -212,7 +212,7 @@ static NSDictionary *YTSHTTPHeaders;
     NSString *path = [[NSString stringWithFormat:@"shows/1?limit=%ld&keywords=%@&sort=seeds", (long)PTAPIManagerResultsLimit, name]
                       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *URLString = [PTAPIManagerShowsEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString]success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {
             success((NSArray *)JSONObject);
         }
@@ -229,7 +229,7 @@ static NSDictionary *YTSHTTPHeaders;
                       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *URLString = [PTAPIManagerAnimeEndPoint stringByAppendingPathComponent:path];
 
-    [self dataFromURL:[NSURL URLWithString:URLString]success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {
             success((NSArray *)JSONObject);
         }
@@ -242,7 +242,7 @@ static NSDictionary *YTSHTTPHeaders;
 {
     NSString *path = [NSString stringWithFormat:@"anime.php?id=%@", imdbId];
     NSString *URLString = [PTAPIManagerAnimeEndPoint stringByAppendingPathComponent:path];
-    [self dataFromURL:[NSURL URLWithString:URLString]success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {
             success((NSDictionary *)JSONObject);
         }
@@ -258,7 +258,7 @@ static NSDictionary *YTSHTTPHeaders;
                       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *URLString = [PTAPIManagerAnimeEndPoint stringByAppendingPathComponent:path];
     
-    [self dataFromURL:[NSURL URLWithString:URLString]success:^(id JSONObject) {
+    [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {
             success((NSArray *)JSONObject);
         }

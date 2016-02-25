@@ -62,15 +62,15 @@ class BasicInfo: NSObject, BasicInfoProtocol, NSCoding {
         identifier = aDecoder.decodeObjectForKey("identifier") as! String
         title = aDecoder.decodeObjectForKey("title") as? String
         year = aDecoder.decodeObjectForKey("year") as? String
-        smallImage = aDecoder.decodeObjectForKey("poster_med") as? Image
-        bigImage = aDecoder.decodeObjectForKey("poster_big") as? Image
+        smallImage = aDecoder.decodeObjectForKey("smallImage") as? Image
+        bigImage = aDecoder.decodeObjectForKey("bigImage") as? Image
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(identifier, forKey: "identifier")
         aCoder.encodeObject(title, forKey: "title")
         aCoder.encodeObject(year, forKey: "year")
-        aCoder.encodeObject(smallImage, forKey: "poster_med")
-        aCoder.encodeObject(bigImage, forKey: "poster_big")
+        aCoder.encodeObject(smallImage, forKey: "smallImage")
+        aCoder.encodeObject(bigImage, forKey: "bigImage")
     }
 }
