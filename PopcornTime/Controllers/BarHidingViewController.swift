@@ -10,11 +10,11 @@ import UIKit
 
 class BarHidingViewController: UIViewController {
 
-    private var barsVisible:Bool = true {
+    fileprivate var barsVisible:Bool = true {
         willSet {
-            self.tabBarController?.tabBar.hidden = !newValue
-            self.navigationController?.navigationBar.hidden = !newValue
-            UIApplication.sharedApplication().setStatusBarHidden(!newValue, withAnimation: .Fade)
+            self.tabBarController?.tabBar.isHidden = !newValue
+            self.navigationController?.navigationBar.isHidden = !newValue
+            UIApplication.shared.setStatusBarHidden(!newValue, with: .fade)
         }
     }
     
@@ -23,7 +23,7 @@ class BarHidingViewController: UIViewController {
         //Hide bars if needed
         let sizeClass = (horizontal: self.view.traitCollection.horizontalSizeClass, vertical: self.view.traitCollection.verticalSizeClass)
         switch sizeClass{
-        case (_,.Compact):
+        case (_,.compact):
             self.barsVisible = false
         default: self.barsVisible = true
         }

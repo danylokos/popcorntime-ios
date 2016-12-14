@@ -11,7 +11,7 @@ import Foundation
 class Anime: BasicInfo {
     var seasons = [Season]()
 
-    required init(dictionary: NSDictionary) {
+    required init(dictionary: [AnyHashable: Any]) {
         super.init(dictionary: dictionary)
         
         let id = dictionary["id"] as! Int
@@ -22,12 +22,12 @@ class Anime: BasicInfo {
         if let poster = dictionary["malimg"] as? String {
             images = [Image]()
             
-            let URL = NSURL(string: poster)
-            let image = Image(URL: URL!, type: .Poster)
+            let URL = Foundation.URL(string: poster)
+            let image = Image(URL: URL!, type: .poster)
             images.append(image)
         }
         
-        smallImage = images.filter({$0.type == ImageType.Poster}).first
+        smallImage = images.filter({$0.type == ImageType.poster}).first
         bigImage = smallImage
     }
 
@@ -35,17 +35,17 @@ class Anime: BasicInfo {
         super.init(coder: aDecoder)!
     }
     
-    override func update(dictionary: NSDictionary) {
-        seasons.removeAll(keepCapacity: true)
+    override func update(_ dictionary: [AnyHashable: Any]) {
+        seasons.removeAll(keepingCapacity: true)
         
-        let episodesDicts = dictionary["episodes"] as! [NSDictionary]
+        let episodesDicts = dictionary["episodes"] as! [[AnyHashable: Any]]
         let seasonNumber:UInt = 0
         
         var videosContainer = [Int: [Video]]()
         var episodesContainer = [Int: Episode]()
         synopsis = dictionary["synopsis"] as? String
         if let sps = synopsis {
-            synopsis = sps.stringByReplacingOccurrencesOfString("oatRightHeader\">EditSynopsis\n", withString: "")
+            synopsis = sps.replacingOccurrences(of: "oatRightHeader\">EditSynopsis\n", with: "")
         }
 
         
@@ -86,7 +86,7 @@ class Anime: BasicInfo {
         }
         
         
-        let episodes = Array(episodesContainer.values).sort { (a, b) -> Bool in
+        let episodes = Array(episodesContainer.values).sorted { (a, b) -> Bool in
             return a.episodeNumber > b.episodeNumber
         }
         
@@ -94,8 +94,8 @@ class Anime: BasicInfo {
         seasons.append(season)
     }
     
-    private func numbersFromAnimeTitle(title: String) -> [Int]{
-        let components = title.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "[]_() "))
+    fileprivate func numbersFromAnimeTitle(_ title: String) -> [Int]{
+        let components = title.components(separatedBy: CharacterSet(charactersIn: "[]_() "))
         var numbers = [Int]()
         for component in components {
             if let number = Int(component) {
@@ -109,12 +109,12 @@ class Anime: BasicInfo {
 }
 
 extension Anime: ContainsEpisodes {
-    func episodeFor(seasonIndex seasonIndex: Int, episodeIndex: Int) -> Episode {
+    func episodeFor(seasonIndex: Int, episodeIndex: Int) -> Episode {
         let episode = seasons[seasonIndex].episodes[episodeIndex]
         return episode
     }
     
-    func episodesFor(seasonIndex seasonIndex: Int) -> [Episode] {
+    func episodesFor(seasonIndex: Int) -> [Episode] {
         return seasons[seasonIndex].episodes
     }
 }

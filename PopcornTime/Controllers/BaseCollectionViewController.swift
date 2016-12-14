@@ -14,7 +14,7 @@ let reuseIdentifierMore = "MoreShowsCell"
 ///Base class for displaying collection of shows, subclass MUST override reloadData() and set self.shows in it
 class BaseCollectionViewController: BarHidingViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    private struct Constants{
+    fileprivate struct Constants{
         static let desirediPadCellWidth = 160
         static let desirediPadCellHeight = 205
         static let numberOfLinesiPhonePortrait = 2
@@ -40,8 +40,8 @@ class BaseCollectionViewController: BarHidingViewController, UICollectionViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView!.registerNib(UINib(nibName: "ShowCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifierShow)
-        self.collectionView!.registerNib(UINib(nibName: "MoreShowsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifierMore)
+        self.collectionView!.register(UINib(nibName: "ShowCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifierShow)
+        self.collectionView!.register(UINib(nibName: "MoreShowsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifierMore)
         self.collectionView?.delegate = self
         self.collectionView?.collectionViewLayout.invalidateLayout()
         
@@ -49,35 +49,35 @@ class BaseCollectionViewController: BarHidingViewController, UICollectionViewDel
     }
     
     // MARK: UICollectionViewDataSource
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let additionalCellsCount = self.showLoadMoreCell ? 1 : 0
         return (items.count + additionalCellsCount)
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if (self.showLoadMoreCell && indexPath.row == items.count) {
             //Last cell
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifierMore, forIndexPath: indexPath) as! MoreShowsCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifierMore, for: indexPath) as! MoreShowsCollectionViewCell
             return cell
         } else {
             //Ordinary show cell
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifierShow, forIndexPath: indexPath) as! ShowCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifierShow, for: indexPath) as! ShowCollectionViewCell
             
             let item = items[indexPath.row]
             cell.title = item.title
             
             let imageItem = item.smallImage
             switch imageItem?.status {
-            case .New?:
-                imageItem?.status = .Downloading
+            case .new?:
+                imageItem?.status = .downloading
                 ImageProvider.sharedInstance.imageFromURL(URL: imageItem?.URL) { (downloadedImage) -> () in
                     imageItem?.image = downloadedImage
-                    imageItem?.status = .Finished
+                    imageItem?.status = .finished
                     
-                    collectionView.reloadItemsAtIndexPaths([indexPath])
+                    collectionView.reloadItems(at: [indexPath])
                 }
-            case .Finished?:
+            case .finished?:
                 cell.image = imageItem?.image
             default: break
             }
@@ -87,9 +87,9 @@ class BaseCollectionViewController: BarHidingViewController, UICollectionViewDel
     }
 
     // MARK: UICollectionViewDelegateFlowLayout & UICollectionViewDelegate
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let visibleAreaHeight = collectionView.bounds.height - navigationController!.navigationBar.bounds.height - UIApplication.sharedApplication().statusBarFrame.height - self.tabBarController!.tabBar.bounds.height
+        let visibleAreaHeight = collectionView.bounds.height - navigationController!.navigationBar.bounds.height - UIApplication.shared.statusBarFrame.height - self.tabBarController!.tabBar.bounds.height
         let visibleAreaWidth = collectionView.bounds.width
         
         //Set cell size based on size class.
@@ -97,16 +97,16 @@ class BaseCollectionViewController: BarHidingViewController, UICollectionViewDel
         
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout{
             switch sizeClass{
-            case (.Compact,.Regular):
+            case (.compact,.regular):
                 //iPhone portrait
                 let cellWidth = ((visibleAreaWidth - CGFloat(Constants.numberOfItemsiPhonePortrait - 1)*flowLayout.minimumInteritemSpacing - flowLayout.sectionInset.top - flowLayout.sectionInset.bottom)/CGFloat(Constants.numberOfItemsiPhonePortrait))
                 let cellHeight = ((visibleAreaHeight - CGFloat(Constants.numberOfLinesiPhonePortrait - 1)*flowLayout.minimumLineSpacing - flowLayout.sectionInset.left - flowLayout.sectionInset.right)/CGFloat(Constants.numberOfLinesiPhonePortrait))
-                return CGSizeMake(cellWidth, cellHeight)
-            case (_,.Compact):
+                return CGSize(width: cellWidth, height: cellHeight)
+            case (_,.compact):
                 //iPhone landscape
                 let cellWidth = ((collectionView.bounds.width - CGFloat(Constants.numberOfItemsiPhoneLandscape - 1)*flowLayout.minimumInteritemSpacing - flowLayout.sectionInset.top - flowLayout.sectionInset.bottom)/CGFloat(Constants.numberOfItemsiPhoneLandscape))
                 let cellHeight = ((collectionView.bounds.height - CGFloat(Constants.numberOfLinesiPhoneLandscape - 1)*flowLayout.minimumLineSpacing - flowLayout.sectionInset.left - flowLayout.sectionInset.right)/CGFloat(Constants.numberOfLinesiPhoneLandscape))
-                return CGSizeMake(cellWidth, cellHeight)
+                return CGSize(width: cellWidth, height: cellHeight)
             case (_,_):
                 // iPad. Calculate cell size based on desired size
                 let numberOfLines = Int(visibleAreaHeight) / Constants.desirediPadCellHeight
@@ -116,11 +116,11 @@ class BaseCollectionViewController: BarHidingViewController, UICollectionViewDel
                 let adjustedHeight = (visibleAreaHeight - betweenLinesSpaceSum  - sectionInsetsVerticalSum)/CGFloat(numberOfLines)
                 let adjustedWidth = adjustedHeight * CGFloat(Constants.desirediPadCellWidth) / CGFloat(Constants.desirediPadCellHeight)
                 
-                return CGSizeMake(adjustedWidth, adjustedHeight)
+                return CGSize(width: adjustedWidth, height: adjustedHeight)
             }
         }
         
-        return CGSizeMake(50, 50)
+        return CGSize(width: 50, height: 50)
     }
     
     // MARK: - ShowsCollectionViewController

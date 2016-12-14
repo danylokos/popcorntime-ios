@@ -13,16 +13,16 @@ struct Notifications {
 }
 
 class DataManager {
-    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as String
+    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as String
     let fileName = "Favorites.plist"
     var filePath: String {
         get {
-            return fileURL.path!
+            return fileURL.path
         }
     }
-    var fileURL: NSURL {
-        let url = NSURL(fileURLWithPath: documentsDirectory, isDirectory: true)
-        return url.URLByAppendingPathComponent(fileName)
+    var fileURL: URL {
+        let url = URL(fileURLWithPath: documentsDirectory, isDirectory: true)
+        return url.appendingPathComponent(fileName)
     }
     var favorites: [BasicInfo]?
 
@@ -35,26 +35,26 @@ class DataManager {
         return Static.instance
     }
 
-    private func loadFavorites() -> [BasicInfo]? {
-        if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-            let data = NSData(contentsOfFile:filePath)
+    fileprivate func loadFavorites() -> [BasicInfo]? {
+        if FileManager.default.fileExists(atPath: filePath) {
+            let data = try? Data(contentsOf: URL(fileURLWithPath: filePath))
             if let data = data {
-                self.favorites = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [BasicInfo]?
+                self.favorites = NSKeyedUnarchiver.unarchiveObject(with: data) as! [BasicInfo]?
                 return self.favorites
             }
         }
         return nil
     }
     
-    private func saveFavorites(items: [BasicInfo]) {
-        let data = NSKeyedArchiver.archivedDataWithRootObject(items)
-        data.writeToFile(filePath, atomically: true)
+    fileprivate func saveFavorites(_ items: [BasicInfo]) {
+        let data = NSKeyedArchiver.archivedData(withRootObject: items)
+        try? data.write(to: URL(fileURLWithPath: filePath), options: [.atomic])
         self.favorites = items
     }
     
     // MARK: -
     
-    func isFavorite(item: BasicInfo) -> Bool {
+    func isFavorite(_ item: BasicInfo) -> Bool {
         let favoriteItem = self.favorites?.filter({ $0.identifier == item.identifier }).first
         if favoriteItem != nil {
             return true
@@ -62,7 +62,7 @@ class DataManager {
         return false
     }
     
-    func addToFavorites(item: BasicInfo) {
+    func addToFavorites(_ item: BasicInfo) {
         var items = [BasicInfo]()
         if let favorites = loadFavorites() {
             items += favorites
@@ -70,19 +70,19 @@ class DataManager {
         items.append(item)
         saveFavorites(items)
         
-        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.FavoritesDidChangeNotification, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notifications.FavoritesDidChangeNotification), object: nil)
     }
     
-    func removeFromFavorites(item: BasicInfo) {
+    func removeFromFavorites(_ item: BasicInfo) {
         let items = loadFavorites()
             if var items = items {
             let favoriteItem = items.filter({ $0.identifier == item.identifier }).first
             if let favoriteItem = favoriteItem {
-                let idx = items.indexOf(favoriteItem)
-                items.removeAtIndex(idx!)
+                let idx = items.index(of: favoriteItem)
+                items.remove(at: idx!)
                 saveFavorites(items)
 
-                NSNotificationCenter.defaultCenter().postNotificationName(Notifications.FavoritesDidChangeNotification, object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Notifications.FavoritesDidChangeNotification), object: nil)
             }
         }
     }

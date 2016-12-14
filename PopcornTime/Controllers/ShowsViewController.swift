@@ -12,35 +12,35 @@ class ShowsViewController: PagedViewController {
     
     override var showType: PTItemType {
         get {
-            return .Show
+            return .show
         }
     }
     
-    override func map(response: [AnyObject]) -> [BasicInfo] {
-        return response.map({ Show(dictionary: $0 as! NSDictionary) })
+    override func map(_ response: [AnyObject]) -> [BasicInfo] {
+        return response.map({ Show(dictionary: $0 as! [AnyHashable: Any]) })
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath) {
         
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath){
+        if let cell = collectionView.cellForItem(at: indexPath){
             //Check if cell is MoreShowsCell
             if let _ = cell as? MoreShowsCollectionViewCell {
                 loadMore()
             } else {
-                performSegueWithIdentifier("showDetails", sender: cell)
+                performSegue(withIdentifier: "showDetails", sender: cell)
             }
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         
         if segue.identifier == "showDetails" {
-            if let episodesVC = segue.destinationViewController as? ShowDetailsViewController {
+            if let episodesVC = segue.destination as? ShowDetailsViewController {
                 if let senderCell = sender as? UICollectionViewCell {
-                    if let indexPath = collectionView!.indexPathForCell(senderCell) {
+                    if let indexPath = collectionView!.indexPath(for: senderCell) {
                         var item: BasicInfo!
-                        if (searchController!.active) {
+                        if (searchController!.isActive) {
                             item = searchResults[indexPath.row]
                         } else {
                             item = items[indexPath.row]

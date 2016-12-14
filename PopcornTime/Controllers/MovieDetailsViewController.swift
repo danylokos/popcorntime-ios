@@ -26,7 +26,8 @@ class MovieDetailsViewController: BaseDetailsViewController {
     // MARK: - BaseDetailsViewController
     
     override func reloadData() {
-        PTAPIManager.sharedManager().showInfoWithType(.Movie, withId: item.identifier, success: { (item) -> Void in
+        PTAPIManager.shared().showInfo(with: .movie, withId: item.identifier, success: { (item) -> Void in
+            guard let item = item else { return }
             self.movie.update(item)
             self.collectionView?.reloadData()
             }, failure: nil)
@@ -37,11 +38,11 @@ class MovieDetailsViewController: BaseDetailsViewController {
         return 1
     }
     
-    override func numberOfEpisodesInSeason(seasonsIndex: Int) -> Int {
+    override func numberOfEpisodesInSeason(_ seasonsIndex: Int) -> Int {
         return movie.videos.count
     }
     
-    override func setupCell(cell: EpisodeCell, seasonIndex: Int, episodeIndex: Int) {
+    override func setupCell(_ cell: EpisodeCell, seasonIndex: Int, episodeIndex: Int) {
         let video = movie.videos[episodeIndex]
         var title = ""
         if let quality = video.quality {
@@ -53,10 +54,10 @@ class MovieDetailsViewController: BaseDetailsViewController {
         cell.titleLabel.text = title
     }
     
-    override func setupSeasonHeader(header: SeasonHeader, seasonIndex: Int) {
+    override func setupSeasonHeader(_ header: SeasonHeader, seasonIndex: Int) {
     }
     
-    override func cellWasPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
+    override func cellWasPressed(_ cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
         let video = movie.videos[episodeIndex]
         let magnetLink = video.magnetLink
         let title = movie.title ?? ""

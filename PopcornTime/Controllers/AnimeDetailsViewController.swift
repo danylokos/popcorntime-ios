@@ -25,7 +25,8 @@ class AnimeDetailsViewController: BaseDetailsViewController {
     // MARK: - BaseDetailsViewController
     
     override func reloadData() {
-        PTAPIManager.sharedManager().showInfoWithType(.Anime, withId: item.identifier, success: { (item) -> Void in
+        PTAPIManager.shared().showInfo(with: .anime, withId: item.identifier, success: { (item) -> Void in
+            guard let item = item else { return }
             self.anime.update(item)
             self.collectionView?.reloadData()
             }, failure: nil)
@@ -36,25 +37,25 @@ class AnimeDetailsViewController: BaseDetailsViewController {
         return anime.seasons.count
     }
     
-    override func numberOfEpisodesInSeason(seasonsIndex: Int) -> Int {
+    override func numberOfEpisodesInSeason(_ seasonsIndex: Int) -> Int {
         return anime.seasons[seasonsIndex].episodes.count
     }
     
-    override func setupCell(cell: EpisodeCell, seasonIndex: Int, episodeIndex: Int) {
+    override func setupCell(_ cell: EpisodeCell, seasonIndex: Int, episodeIndex: Int) {
         let episode = anime.seasons[seasonIndex].episodes[episodeIndex]
         cell.titleLabel.text = "\(episode.episodeNumber)"
     }
     
-    override func setupSeasonHeader(header: SeasonHeader, seasonIndex: Int) {
+    override func setupSeasonHeader(_ header: SeasonHeader, seasonIndex: Int) {
         
     }
     
-    override func cellWasPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
+    override func cellWasPressed(_ cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
         let episode = anime.seasons[seasonIndex].episodes[episodeIndex]
         showVideoPickerPopupForEpisode(episode, basicInfo: self.item, fromView: cell)
     }
     
-    override func cellWasLongPressed(cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
+    override func cellWasLongPressed(_ cell: UICollectionViewCell, seasonIndex: Int, episodeIndex: Int) {
 //        let episode = anime.episodeFor(seasonIndex: seasonIndex, episodeIndex: episodeIndex)
 //        let seasonEpisodes = anime.episodesFor(seasonIndex: seasonIndex)
     }

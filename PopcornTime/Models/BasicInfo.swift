@@ -9,8 +9,8 @@
 import Foundation
 
 protocol ContainsEpisodes {
-    func episodeFor(seasonIndex seasonIndex: Int, episodeIndex: Int) -> Episode
-    func episodesFor(seasonIndex seasonIndex: Int) -> [Episode]
+    func episodeFor(seasonIndex: Int, episodeIndex: Int) -> Episode
+    func episodesFor(seasonIndex: Int) -> [Episode]
 }
 
 protocol BasicInfoProtocol {
@@ -22,8 +22,8 @@ protocol BasicInfoProtocol {
     var bigImage: Image? {get}
     var isFavorite: Bool {get}
  
-    init(dictionary: NSDictionary)
-    func update(dictionary: NSDictionary)
+    init(dictionary: [AnyHashable: Any])
+    func update(_ dictionary: [AnyHashable: Any])
 }
 
 class BasicInfo: NSObject, BasicInfoProtocol, NSCoding {
@@ -48,29 +48,29 @@ class BasicInfo: NSObject, BasicInfoProtocol, NSCoding {
         }
     }
     
-    required init(dictionary: NSDictionary) {
+    required init(dictionary: [AnyHashable: Any]) {
 //        fatalError("init(dictionary:) has not been implemented")
     }
 
-    func update(dictionary: NSDictionary) {
+    func update(_ dictionary: [AnyHashable: Any]) {
         fatalError("update(dictionary:) has not been implemented")
     }
     
     // MARK: - NSCoding
     
     required init?(coder aDecoder: NSCoder) {
-        identifier = aDecoder.decodeObjectForKey("identifier") as! String
-        title = aDecoder.decodeObjectForKey("title") as? String
-        year = aDecoder.decodeObjectForKey("year") as? String
-        smallImage = aDecoder.decodeObjectForKey("smallImage") as? Image
-        bigImage = aDecoder.decodeObjectForKey("bigImage") as? Image
+        identifier = aDecoder.decodeObject(forKey: "identifier") as! String
+        title = aDecoder.decodeObject(forKey: "title") as? String
+        year = aDecoder.decodeObject(forKey: "year") as? String
+        smallImage = aDecoder.decodeObject(forKey: "smallImage") as? Image
+        bigImage = aDecoder.decodeObject(forKey: "bigImage") as? Image
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(identifier, forKey: "identifier")
-        aCoder.encodeObject(title, forKey: "title")
-        aCoder.encodeObject(year, forKey: "year")
-        aCoder.encodeObject(smallImage, forKey: "smallImage")
-        aCoder.encodeObject(bigImage, forKey: "bigImage")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(identifier, forKey: "identifier")
+        aCoder.encode(title, forKey: "title")
+        aCoder.encode(year, forKey: "year")
+        aCoder.encode(smallImage, forKey: "smallImage")
+        aCoder.encode(bigImage, forKey: "bigImage")
     }
 }

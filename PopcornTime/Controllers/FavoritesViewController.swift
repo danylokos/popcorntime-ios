@@ -31,26 +31,26 @@ class FavoritesViewController: PagedViewController {
         self.searchController = nil
         self.navigationItem.titleView = nil
 
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
             self,
-            selector: "favoritesDidChange:",
-            name: Notifications.FavoritesDidChangeNotification,
+            selector: #selector(FavoritesViewController.favoritesDidChange(_:)),
+            name: NSNotification.Name(rawValue: Notifications.FavoritesDidChangeNotification),
             object: nil
         )
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let item = sender as? BasicInfo {
             
-            if let episodesVC = segue.destinationViewController as? BaseDetailsViewController {
+            if let episodesVC = segue.destination as? BaseDetailsViewController {
                 switch item {
                 case item as Anime:
                     episodesVC.item = item as! Anime
@@ -67,23 +67,23 @@ class FavoritesViewController: PagedViewController {
     
     // MARK: - Notifications
     
-    func favoritesDidChange(notification: NSNotification) {
+    func favoritesDidChange(_ notification: Notification) {
         self.reloadData()
     }
     
     // MARK: - UICollectionViewDelegate
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath) {
         
         let item = self.items[indexPath.row]
         
         switch item {
         case item as Anime:
-            performSegueWithIdentifier("showDetailsForFavoriteAnime", sender: item)
+            performSegue(withIdentifier: "showDetailsForFavoriteAnime", sender: item)
         case item as Show:
-            performSegueWithIdentifier("showDetailsForFavoriteShow", sender: item)
+            performSegue(withIdentifier: "showDetailsForFavoriteShow", sender: item)
         case item as Movie:
-            performSegueWithIdentifier("showDetailsForFavoriteMovie", sender: item)
+            performSegue(withIdentifier: "showDetailsForFavoriteMovie", sender: item)
         default:
             break
         }

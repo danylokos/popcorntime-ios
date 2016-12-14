@@ -9,7 +9,7 @@
 import UIKit
 
 protocol OAuthViewControllerDelegate {
-    func oauthViewControllerDidFinish(controller: OAuthViewController, token: String?, error: NSError?)
+    func oauthViewControllerDidFinish(_ controller: OAuthViewController, token: String?, error: NSError?)
 }
 
 class OAuthViewController: UIViewController, UIWebViewDelegate {
@@ -17,7 +17,7 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     var delegate: OAuthViewControllerDelegate?
-    var URL: NSURL?
+    var URL: Foundation.URL?
     
     // MARK: - View Life Cycle
     
@@ -25,14 +25,14 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
 
         if let URL = URL {
-            webView.loadRequest(NSURLRequest(URL: URL))
+            webView.loadRequest(URLRequest(url: URL))
         }
     }
     
     // MARK: - UIWebViewDelegate
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if let code = request.URL?.lastPathComponent {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if let code = request.url?.lastPathComponent {
             if code.characters.count == 64 {
 //                PTAPIManager.sharedManager().accessTokenWithAuthorizationCode(code, success: { (accessToken) -> Void in
 //                    println("OAuth access token: \(accessToken)")
@@ -46,21 +46,21 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
         return true;
     }
     
-    func webViewDidStartLoad(webView: UIWebView) {
+    func webViewDidStartLoad(_ webView: UIWebView) {
         
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
 
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        delegate?.oauthViewControllerDidFinish(self, token: nil, error: error)
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        delegate?.oauthViewControllerDidFinish(self, token: nil, error: error as NSError?)
     }
     
     // MARK: - Actions
     
-    @IBAction func cancelButtonPressed(sender: AnyObject) {
+    @IBAction func cancelButtonPressed(_ sender: AnyObject) {
         delegate?.oauthViewControllerDidFinish(self, token: nil, error: nil)
     }
     

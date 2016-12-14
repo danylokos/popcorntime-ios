@@ -11,15 +11,15 @@ import UIKit
 class StratchyLayoutAttributes: UICollectionViewLayoutAttributes {
     
     var deltaY: CGFloat = 0
-    var maxDelta: CGFloat = CGFloat.max
+    var maxDelta: CGFloat = CGFloat.greatestFiniteMagnitude
     
-    override func copyWithZone(zone: NSZone) -> AnyObject {
-        let copy = super.copyWithZone(zone) as! StratchyLayoutAttributes
+    override func copy(with zone: NSZone?) -> Any {
+        let copy = super.copy(with: zone) as! StratchyLayoutAttributes
         copy.deltaY = deltaY
         return copy
     }
     
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         if let attributes = object as? StratchyLayoutAttributes {
             if attributes.deltaY == deltaY {
                 return super.isEqual(object)
@@ -31,16 +31,16 @@ class StratchyLayoutAttributes: UICollectionViewLayoutAttributes {
 
 class StratchyHeaderLayout: UICollectionViewFlowLayout, StratchyHeaderDelegate {
     
-    var headerSize = CGSizeZero
-    var maxDelta: CGFloat = CGFloat.max
+    var headerSize = CGSize.zero
+    var maxDelta: CGFloat = CGFloat.greatestFiniteMagnitude
     let minCellWidth: CGFloat = 300
     let cellAspectRatio: CGFloat = 370/46
     
-    override class func layoutAttributesClass() -> AnyClass {
+    override class var layoutAttributesClass : AnyClass {
         return StratchyLayoutAttributes.self
     }
     
-    override func collectionViewContentSize() -> CGSize {
+    override var collectionViewContentSize : CGSize {
         
         sectionInset.bottom = 15.0
         sectionInset.top = 5.0
@@ -51,22 +51,22 @@ class StratchyHeaderLayout: UICollectionViewFlowLayout, StratchyHeaderDelegate {
         let numberOfColumns = Int(width / minCellWidth)
         let cellWidth = CGFloat((Int(width) - Int(minimumInteritemSpacing) * (numberOfColumns - 1)) / numberOfColumns)
         let cellHeight = cellWidth / cellAspectRatio
-        self.itemSize = CGSizeMake(cellWidth, cellHeight)
+        self.itemSize = CGSize(width: cellWidth, height: cellHeight)
         
-        return super.collectionViewContentSize()
+        return super.collectionViewContentSize
     }
     
-    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
         let insets = collectionView!.contentInset
         let offset = collectionView!.contentOffset
         let minY = -insets.top
         
-        let attributes = super.layoutAttributesForElementsInRect(rect)
+        let attributes = super.layoutAttributesForElements(in: rect)
         
         if let stratchyAttributes = attributes as? [StratchyLayoutAttributes] {
             // Check if we've pulled below past the lowest position
@@ -79,7 +79,7 @@ class StratchyHeaderLayout: UICollectionViewFlowLayout, StratchyHeaderDelegate {
                             if (kind == UICollectionElementKindSectionHeader) {
                                 var headerRect = attribute.frame
                                 headerRect.size.height =  min(headerSize.height + maxDelta, max(minY, headerSize.height + deltaY));
-                                headerRect.origin.y = CGRectGetMinY(headerRect) - deltaY;
+                                headerRect.origin.y = headerRect.minY - deltaY;
                                 attribute.frame = headerRect
                                 attribute.deltaY = deltaY
                                 attribute.maxDelta = maxDelta
@@ -94,7 +94,7 @@ class StratchyHeaderLayout: UICollectionViewFlowLayout, StratchyHeaderDelegate {
     }
     
     // MARK: - StratchyHeaderDelegate
-    func stratchyHeader(header: StratchyHeader, didResetMaxStratchValue value: CGFloat) {
+    func stratchyHeader(_ header: StratchyHeader, didResetMaxStratchValue value: CGFloat) {
         maxDelta = value
     }
     

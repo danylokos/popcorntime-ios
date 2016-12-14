@@ -10,7 +10,7 @@ import UIKit
 
 protocol StratchyHeaderDelegate: class {
     ///Triggers when header max stratch value is recalculated
-    func stratchyHeader(header: StratchyHeader, didResetMaxStratchValue value: CGFloat)
+    func stratchyHeader(_ header: StratchyHeader, didResetMaxStratchValue value: CGFloat)
 }
 
 
@@ -37,8 +37,8 @@ class StratchyHeader: UICollectionReusableView {
     }
     
     // MARK: - UICollectionReusableView
-    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
-        super.applyLayoutAttributes(layoutAttributes)
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
         
         let attributes = layoutAttributes as! StratchyLayoutAttributes
         
@@ -59,33 +59,33 @@ class StratchyHeader: UICollectionReusableView {
     }
     
     // MARK: - Private
-    @IBOutlet weak private var widthConstraint: NSLayoutConstraint!
-    @IBOutlet weak private var heightConstraint: NSLayoutConstraint!
-    @IBOutlet weak private var backgroundImageView: UIImageView!
+    @IBOutlet weak fileprivate var widthConstraint: NSLayoutConstraint!
+    @IBOutlet weak fileprivate var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak fileprivate var backgroundImageView: UIImageView!
     
     @IBOutlet weak var foregroundView: UIView!
     @IBOutlet weak var foregroundImage: UIImageView!
     @IBOutlet weak var synopsisTextView: UILabel!
     
     
-    private var maxStratch: CGFloat = 0
+    fileprivate var maxStratch: CGFloat = 0
     
-    private var zoomWidthCoef: CGFloat {
+    fileprivate var zoomWidthCoef: CGFloat {
         get {
             let headerAspectRatio = headerSize.height / headerSize.width
             return (1.7 * headerAspectRatio) / 0.5325  // Experimentally calculated value :]
         }
     }
-    private var imageAspectRatio: CGFloat = 0
-    private var imageViewActualWidth: CGFloat {
+    fileprivate var imageAspectRatio: CGFloat = 0
+    fileprivate var imageViewActualWidth: CGFloat {
         return headerSize.width * zoomWidthCoef
     }
-    private var imageViewActualHeight: CGFloat {
+    fileprivate var imageViewActualHeight: CGFloat {
         return imageViewActualWidth * imageAspectRatio
     }
-    private var previousHeight: CGFloat = 0
+    fileprivate var previousHeight: CGFloat = 0
     
-    private func updateImageViewConstraints() {
+    fileprivate func updateImageViewConstraints() {
         
 //        let dX = fabs(headerSize.height - imageViewActualHeight)/2
         let dY = fabs(headerSize.width - imageViewActualWidth)/2

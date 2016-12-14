@@ -11,7 +11,7 @@ import UIKit
 
 class ColorfullTabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    private struct ColorConstants {
+    fileprivate struct ColorConstants {
         static let favoritesTintColor = UIColor(red: 235/255, green: 66/255, blue: 69/255, alpha: 1.0)
         static let moviesTintColor = UIColor(red: 66/255, green: 166/255, blue: 235/255, alpha: 1.0)
         static let showsTintColor = UIColor(red: 33/255, green: 181/255, blue: 42/255, alpha: 1.0)
@@ -24,20 +24,20 @@ class ColorfullTabBarController: UITabBarController, UITabBarControllerDelegate 
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         assignColors()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         assignColors()
     }
     
-    private func assignColors() {
+    fileprivate func assignColors() {
         switch selectedIndex {
         case 0: view.window?.tintColor = ColorConstants.favoritesTintColor
         case 1: view.window?.tintColor = ColorConstants.moviesTintColor
@@ -50,7 +50,7 @@ class ColorfullTabBarController: UITabBarController, UITabBarControllerDelegate 
     
     // MARK: - UITabBarControllerDelegate
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         self.assignColors()
     }
     

@@ -10,13 +10,13 @@ import UIKit
 
 class ShowCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak private var imageView: UIImageView!
-    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak fileprivate var imageView: UIImageView!
+    @IBOutlet weak fileprivate var titleLabel: UILabel!
 
     var image: UIImage? {
         didSet {
             self.imageView?.image = image
-            self.titleLabel.hidden = image != nil
+            self.titleLabel.isHidden = image != nil
         }
     }
     

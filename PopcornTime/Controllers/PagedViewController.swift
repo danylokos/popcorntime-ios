@@ -10,16 +10,16 @@ import UIKit
 
 class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UISearchResultsUpdating  {
    
-    private var contentPage: UInt = 0
+    fileprivate var contentPage: UInt = 0
 
     var searchResults = [BasicInfo]()
     var searchController: UISearchController?
-    var searchTimer: NSTimer?
+    var searchTimer: Timer?
 
     var showType: PTItemType {
         get {
             assert(false, "this must be overriden by subclass")
-            return .Movie
+            return .movie
         }
     }
     
@@ -31,13 +31,13 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
         setupSearch()
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         
         collectionViewLayout?.invalidateLayout()
     }
     
-    private func setupSearch() {
+    fileprivate func setupSearch() {
         
         self.definesPresentationContext = true
         
@@ -48,7 +48,7 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
         
         let searchBar = searchController!.searchBar
         searchBar.delegate = self
-        searchBar.barStyle = .Black
+        searchBar.barStyle = .black
         searchBar.backgroundImage = UIImage()
         
         
@@ -58,36 +58,37 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
         navigationItem.titleView = searchBarContainer
         
         let views = ["searchBar" : searchBar]
-        searchBarContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[searchBar]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-        searchBarContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[searchBar]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+        searchBarContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[searchBar]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+        searchBarContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[searchBar]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
     }
 
     // MARK:
     
-    func map(response: [AnyObject]) -> [BasicInfo] {
+    func map(_ response: [AnyObject]) -> [BasicInfo] {
         return [BasicInfo]()
     }
     
     override func reloadData() {
-        PTAPIManager.sharedManager().topShowsWithType(showType, withPage: contentPage, success: { (items) -> Void in
+        PTAPIManager.shared().topShows(with: showType, withPage: contentPage, success: { (items) -> Void in
             self.showLoadMoreCell = true
             if let items = items {
-                self.items = self.map(items)
+                self.items = self.map(items as [AnyObject])
                 self.collectionView?.reloadData()
             }
             }, failure: nil)
     }
     
     func loadMore() {
-        PTAPIManager.sharedManager().topShowsWithType(showType, withPage: contentPage+1, success: { (items) -> Void in
+        PTAPIManager.shared().topShows(with: showType, withPage: contentPage+1, success: { (items) -> Void in
             if let items = items {
-                self.contentPage++
-                let newItems = self.map(items)
-                var counter = 0
-                let newShowsIndexPathes = newItems.map({ item in NSIndexPath(forRow: (self.items.count + counter++), inSection: 0) } )
+                self.contentPage += 1
+                let newItems = self.map(items as [AnyObject])
+                let newShowsIndexPathes = newItems.enumerated().map({ (index, item) in
+                    return IndexPath(row: (self.items.count + index), section: 0)
+                })
                 self.items += newItems
                 
-                self.collectionView?.insertItemsAtIndexPaths(newShowsIndexPathes)
+                self.collectionView?.insertItems(at: newShowsIndexPathes)
             }
             }, failure: nil)
     }
@@ -95,12 +96,12 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
     func performSearch() {
         let text = searchController!.searchBar.text
         if text!.characters.count > 0 {
-            PTAPIManager.sharedManager().searchForShowWithType(showType, name: text, success: { (items) -> Void in
+            PTAPIManager.shared().searchForShow(with: showType, name: text, success: { (items) -> Void in
                 self.showLoadMoreCell = false
                 if let items = items {
-                    self.searchResults = self.map(items)
+                    self.searchResults = self.map(items as [AnyObject])
                 } else {
-                    self.searchResults.removeAll(keepCapacity: false)
+                    self.searchResults.removeAll(keepingCapacity: false)
                 }
                 self.collectionView?.reloadData()
                 }, failure: nil)
@@ -109,44 +110,44 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
 
     // MARK: UICollectionViewDataSource
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if searchController != nil && searchController!.active {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if searchController != nil && searchController!.isActive {
             return searchResults.count
         }
         return super.collectionView(collectionView, numberOfItemsInSection: section)
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if searchController != nil && searchController!.active {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if searchController != nil && searchController!.isActive {
             //Ordinary show cell
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifierShow, forIndexPath: indexPath) as! ShowCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifierShow, for: indexPath) as! ShowCollectionViewCell
             
             let item = searchResults[indexPath.row]
             cell.title = item.title
 
             let imageItem = item.smallImage
             switch imageItem?.status {
-            case .New?:
-                imageItem?.status = .Downloading
+            case .new?:
+                imageItem?.status = .downloading
                 ImageProvider.sharedInstance.imageFromURL(URL: imageItem?.URL) { (downloadedImage) -> () in
                     imageItem?.image = downloadedImage
-                    imageItem?.status = .Finished
+                    imageItem?.status = .finished
                     
-                    collectionView.reloadItemsAtIndexPaths([indexPath])
+                    collectionView.reloadItems(at: [indexPath])
                 }
-            case .Finished?:
+            case .finished?:
                 cell.image = imageItem?.image
             default: break
             }
 
             return cell
         }
-        return super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+        return super.collectionView(collectionView, cellForItemAt: indexPath)
     }
     
     // MARK: UICollectionViewDelegate
     
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: IndexPath) {
         if indexPath.row == items.count {
             loadMore()
         }
@@ -154,28 +155,28 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
     
     // MARK: UISearchBarDelegate
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchTimer?.invalidate()
         self.searchTimer = nil
         performSearch()
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         self.showLoadMoreCell = true
         
         self.searchTimer?.invalidate()
         self.searchTimer = nil
         
-        searchResults.removeAll(keepCapacity: false)
+        searchResults.removeAll(keepingCapacity: false)
         self.collectionView.reloadData()
     }
     
     // MARK: UISearchResultsUpdating
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         self.searchTimer?.invalidate()
         self.collectionView.reloadData()
-        self.searchTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "performSearch", userInfo: nil, repeats: false)
+        self.searchTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PagedViewController.performSearch), userInfo: nil, repeats: false)
     }
 }

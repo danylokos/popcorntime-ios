@@ -19,27 +19,27 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - 
     
     func appInfoString() -> String {
-        let displayName = NSBundle.mainBundle().infoDictionary?["CFBundleDisplayName"] as! String
-        let version = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as! String
-        let shortVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
+        let displayName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as! String
+        let version = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
+        let shortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
         return "\(displayName) \(shortVersion) (\(version))"
     }
     
     // MARK: - UITableViewDataSource
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "SettingsCell"
-        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("SettingsCell") 
+        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: "SettingsCell") 
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: identifier)
+            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
         }
 
         cell.textLabel?.text = "Hello, PopcornTime!"
@@ -47,26 +47,26 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(tableView.bounds), height: 0.0))
-        label.backgroundColor = UIColor.clearColor()
-        label.font = UIFont.systemFontOfSize(14.0)
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: 0.0))
+        label.backgroundColor = UIColor.clear
+        label.font = UIFont.systemFont(ofSize: 14.0)
         label.text = appInfoString()
-        label.textAlignment = .Center
+        label.textAlignment = .center
         return label
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 30.0
     }
     
     // MARK: - UITableViewDelegate
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView .deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView .deselectRow(at: indexPath, animated: true)
     }
     
-    @IBAction func doneButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func doneButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

@@ -9,20 +9,20 @@
 import UIKit
 
 protocol LoadingViewControllerDelegate {
-    func didCancelLoading(controller: LoadingViewController)
+    func didCancelLoading(_ controller: LoadingViewController)
 }
 
 class LoadingViewController: UIViewController {
 
     var delegate: LoadingViewControllerDelegate?
     
-    @IBOutlet private weak var statusLabel: UILabel!
-    @IBOutlet private weak var progressLabel: UILabel!
-    @IBOutlet private weak var progressView: UIProgressView!
-    @IBOutlet private weak var speedLabel: UILabel!
-    @IBOutlet private weak var seedsLabel: UILabel!
-    @IBOutlet private weak var peersLabel: UILabel!
-    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet fileprivate weak var statusLabel: UILabel!
+    @IBOutlet fileprivate weak var progressLabel: UILabel!
+    @IBOutlet fileprivate weak var progressView: UIProgressView!
+    @IBOutlet fileprivate weak var speedLabel: UILabel!
+    @IBOutlet fileprivate weak var seedsLabel: UILabel!
+    @IBOutlet fileprivate weak var peersLabel: UILabel!
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
     
     var status: String? = nil {
         didSet {
@@ -41,7 +41,7 @@ class LoadingViewController: UIViewController {
     
     var speed: Int = 0 { // bytes/s
         didSet {
-            let formattedSpeed = NSByteCountFormatter.stringFromByteCount(Int64(speed), countStyle: .Binary) + "/s"
+            let formattedSpeed = ByteCountFormatter.string(fromByteCount: Int64(speed), countStyle: .binary) + "/s"
             speedLabel.text = String(format:"Speed: %@", formattedSpeed)
         }
     }
@@ -78,18 +78,18 @@ class LoadingViewController: UIViewController {
         seeds = 0
         peers = 0
         
-        UIApplication.sharedApplication().idleTimerDisabled = true;
+        UIApplication.shared.isIdleTimerDisabled = true;
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidLoad()
         
-        UIApplication.sharedApplication().idleTimerDisabled = false;
+        UIApplication.shared.isIdleTimerDisabled = false;
     }
 
     // MARK: - Actions
 
-    @IBAction private func cancelButtonPressed(sender: AnyObject) {
+    @IBAction fileprivate func cancelButtonPressed(_ sender: AnyObject) {
         delegate?.didCancelLoading(self)
     }
     

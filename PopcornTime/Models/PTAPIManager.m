@@ -12,7 +12,7 @@
 
 NSUInteger const PTAPIManagerResultsLimit = 30;
 NSString *const PTAPIManagerMoviesEndPoint = @"http://api.torrentsapi.com/";
-NSString *const PTAPIManagerShowsEndPoint = @"http://popcorntime.ws/api/eztv/";
+NSString *const PTAPIManagerShowsEndPoint = @"https://api-fetch.website/tv/";
 NSString *const PTAPIManagerAnimeEndPoint = @"http://ptp.haruhichan.com";
 
 @implementation PTAPIManager
@@ -183,7 +183,7 @@ static NSDictionary *YTSHTTPHeaders;
                  success:(PTAPIManagerSuccessItems)success
                  failure:(PTAPIManagerFailure)failure
 {
-    NSString *path = [NSString stringWithFormat:@"shows/%ld?limit=%lu&order=desc&sort=seeds", (long)page + 1, (long)PTAPIManagerResultsLimit];
+    NSString *path = [NSString stringWithFormat:@"shows/%ld?limit=%lu", (long)page + 1, (long)PTAPIManagerResultsLimit];
     NSString *URLString = [PTAPIManagerShowsEndPoint stringByAppendingPathComponent:path];
     [self dataFromURL:[NSURL URLWithString:URLString] success:^(id JSONObject) {
         if (success) {

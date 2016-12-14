@@ -11,12 +11,12 @@ import Foundation
 class Show: BasicInfo {
     var seasons = [Season]()
 
-    func thumbnail(original: String) -> String {
-        return original.stringByReplacingOccurrencesOfString("original", withString: "thumb",
-            options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+    func thumbnail(_ original: String) -> String {
+        return original.replacingOccurrences(of: "original", with: "thumb",
+            options: NSString.CompareOptions.caseInsensitive, range: nil)
     }
     
-    required init(dictionary: NSDictionary) {
+    required init(dictionary: [AnyHashable: Any]) {
         super.init(dictionary: dictionary)
         
         identifier = dictionary["imdb_id"] as! String
@@ -26,23 +26,23 @@ class Show: BasicInfo {
         if let imagesDict = dictionary["images"] as? NSDictionary {
             images = [Image]()
             if let banner = imagesDict["banner"] as? String {
-                let URL = NSURL(string: thumbnail(banner))
-                let image = Image(URL: URL!, type: .Banner)
+                let URL = Foundation.URL(string: thumbnail(banner))
+                let image = Image(URL: URL!, type: .banner)
                 images.append(image)
             }
             if let fanart = imagesDict["fanart"] as? String {
-                let URL = NSURL(string: thumbnail(fanart))
-                let image = Image(URL: URL!, type: .Fanart)
+                let URL = Foundation.URL(string: thumbnail(fanart))
+                let image = Image(URL: URL!, type: .fanart)
                 images.append(image)
             }
             if let poster = imagesDict["poster"] as? String {
-                let URL = NSURL(string: thumbnail(poster))
-                let image = Image(URL: URL!, type: .Poster)
+                let URL = Foundation.URL(string: thumbnail(poster))
+                let image = Image(URL: URL!, type: .poster)
                 images.append(image)
             }
             
-            smallImage = images.filter({$0.type == ImageType.Poster}).first
-            bigImage = images.filter({$0.type == ImageType.Fanart}).first
+            smallImage = images.filter({$0.type == ImageType.poster}).first
+            bigImage = images.filter({$0.type == ImageType.fanart}).first
         }
     }
 
@@ -50,37 +50,38 @@ class Show: BasicInfo {
         super.init(coder: aDecoder)!
     }
 
-    override func update(dictionary: NSDictionary) {
+    override func update(_ dictionary: [AnyHashable: Any]) {
         synopsis = dictionary["synopsis"] as? String
         
-        seasons.removeAll(keepCapacity: true)
+        seasons.removeAll(keepingCapacity: true)
         var allEpisodes = [Episode]()
         var allSeasonsNumbers = [UInt:Bool]()
         
-        let episodesDicts = dictionary["episodes"] as! [NSDictionary]!
-        for episodeDict in episodesDicts{
+        guard let episodesDicts = dictionary["episodes"] as? [[AnyHashable: Any]] else { return }
+        for episodeDict in episodesDicts {
 
             var videos = [Video]()
 
-            let torrents = episodeDict["torrents"] as! [String : NSDictionary]
-            for torrent in torrents{
-                let quality = torrent.0
-                if quality == "0" {
-                    continue
+            if let torrents = episodeDict["torrents"] as? [String : NSDictionary] {
+                for torrent in torrents {
+                    let quality = torrent.0
+                    if quality == "0" {
+                        continue
+                    }
+                    
+                    let url = torrent.1["url"] as! String
+                    
+                    let video = Video(name: nil, quality: quality, size: 0, duration: 0, subGroup: nil, magnetLink: url)
+                    videos.append(video)
                 }
-                
-                let url = torrent.1["url"] as! String
-                
-                let video = Video(name: nil, quality: quality, size: 0, duration: 0, subGroup: nil, magnetLink: url)
-                videos.append(video)
             }
             
-            videos = videos.sort({ (a, b) -> Bool in
+            videos = videos.sorted(by: { (a, b) -> Bool in
                 var aQuality: Int = 0
-                NSScanner(string: a.quality!).scanInteger(&aQuality)
+                Scanner(string: a.quality!).scanInt(&aQuality)
 
                 var bQuality: Int = 0
-                NSScanner(string: b.quality!).scanInteger(&bQuality)
+                Scanner(string: b.quality!).scanInt(&bQuality)
                 
                 return aQuality < bQuality
             })
@@ -99,7 +100,7 @@ class Show: BasicInfo {
         }
         
         var seasonsNumbers = Array(allSeasonsNumbers.keys)
-        seasonsNumbers.sortInPlace({ (a, b) -> Bool in
+        seasonsNumbers.sort(by: { (a, b) -> Bool in
             return a < b
         })
         
@@ -117,12 +118,12 @@ class Show: BasicInfo {
 }
 
 extension Show: ContainsEpisodes {
-    func episodeFor(seasonIndex seasonIndex: Int, episodeIndex: Int) -> Episode {
+    func episodeFor(seasonIndex: Int, episodeIndex: Int) -> Episode {
         let episode = seasons[seasonIndex].episodes[episodeIndex]
         return episode
     }
     
-    func episodesFor(seasonIndex seasonIndex: Int) -> [Episode] {
+    func episodesFor(seasonIndex: Int) -> [Episode] {
         return seasons[seasonIndex].episodes
     }
 }

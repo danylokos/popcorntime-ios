@@ -9,20 +9,20 @@
 import UIKit
 
 enum ImageType: Int {
-    case Banner, Poster, Fanart
+    case banner, poster, fanart
 }
 
 enum ImageStatus {
-    case New, Downloading, Finished
+    case new, downloading, finished
 }
 
 class Image: NSObject, NSCoding {
-    let URL: NSURL
+    let URL: Foundation.URL
     var image: UIImage?
     let type: ImageType
-    var status: ImageStatus = .New
+    var status: ImageStatus = .new
     
-    init(URL: NSURL, type: ImageType) {
+    init(URL: Foundation.URL, type: ImageType) {
         self.URL = URL
         self.type = type
     }
@@ -30,13 +30,13 @@ class Image: NSObject, NSCoding {
     // MARK: - NSCoding
     
     required init?(coder aDecoder: NSCoder) {
-        URL = aDecoder.decodeObjectForKey("URL") as! NSURL
-        let typeRaw = aDecoder.decodeObjectForKey("type") as! Int
+        URL = aDecoder.decodeObject(forKey: "URL") as! Foundation.URL
+        let typeRaw = aDecoder.decodeObject(forKey: "type") as! Int
         type = ImageType(rawValue: typeRaw)!
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(URL, forKey: "URL")
-        aCoder.encodeObject(type.rawValue, forKey: "type")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(URL, forKey: "URL")
+        aCoder.encode(type.rawValue, forKey: "type")
     }
 }
