@@ -59,11 +59,15 @@ class BasicInfo: NSObject, BasicInfoProtocol, NSCoding {
     // MARK: - NSCoding
     
     required init?(coder aDecoder: NSCoder) {
-        identifier = aDecoder.decodeObject(forKey: "identifier") as! String
-        title = aDecoder.decodeObject(forKey: "title") as? String
-        year = aDecoder.decodeObject(forKey: "year") as? String
-        smallImage = aDecoder.decodeObject(forKey: "smallImage") as? Image
-        bigImage = aDecoder.decodeObject(forKey: "bigImage") as? Image
+        guard
+            let identifier = aDecoder.decodeObject(forKey: "identifier") as? String
+            else { return nil }
+        
+        self.identifier = identifier
+        self.title = aDecoder.decodeObject(forKey: "title") as? String
+        self.year = aDecoder.decodeObject(forKey: "year") as? String
+        self.smallImage = aDecoder.decodeObject(forKey: "smallImage") as? Image
+        self.bigImage = aDecoder.decodeObject(forKey: "bigImage") as? Image
     }
     
     func encode(with aCoder: NSCoder) {
