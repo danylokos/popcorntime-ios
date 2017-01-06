@@ -30,9 +30,14 @@ class Image: NSObject, NSCoding {
     // MARK: - NSCoding
     
     required init?(coder aDecoder: NSCoder) {
-        URL = aDecoder.decodeObject(forKey: "URL") as! Foundation.URL
-        let typeRaw = aDecoder.decodeObject(forKey: "type") as! Int
-        type = ImageType(rawValue: typeRaw)!
+        let typeRaw = aDecoder.decodeInteger(forKey: "type")
+        guard
+            let URL = aDecoder.decodeObject(forKey: "URL") as? Foundation.URL,
+            let type = ImageType(rawValue: typeRaw)
+            else { return nil }
+        
+        self.URL = URL
+        self.type = type
     }
     
     func encode(with aCoder: NSCoder) {
