@@ -50,7 +50,7 @@ class PagedViewController: BaseCollectionViewController, UISearchBarDelegate, UI
         searchBar.delegate = self
         searchBar.barStyle = .black
         searchBar.backgroundImage = UIImage()
-        
+        searchBar.keyboardAppearance = UIKeyboardAppearance.dark
         
         let searchBarContainer = UIView(frame: navigationController!.navigationBar.bounds)
         searchBarContainer.addSubview(searchBar)
